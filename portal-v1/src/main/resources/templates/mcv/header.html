@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/web/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/web/css/font-awesome.css}">
+    <link rel="stylesheet" th:href="@{/web/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/web/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/web/css/style.css}">
+    <link rel="stylesheet" th:href="@{/web/css/app.css}">
+    <link rel="stylesheet" th:href="@{/web/css/giaodien.css}">
+    <link rel="stylesheet" th:href="@{/web/css/admin/main.css}">
+    <link rel="stylesheet" th:href="@{/web/css/index.css}">
+    <script th:src="@{/web/js/jquery.js}"></script>
+    <script th:src="@{/web/js/gloable.js}"></script>
+    <title>Trung tâm dịch vụ chuyển đổi số - Chi nhánh Tổng công ty công nghệ - viễn thông toàn cầu</title>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="banner-header"></div>
+        <header class="mt-2" style="padding: 5px 0px;" id="header">
+
+        </header>
+
+    </div>
+<script>
+    loadHeader();
+    function loadHeader(){
+        $.ajax(`${localdomain}/web/header`, {
+            method : "GET",
+            headers : {
+                "Content-Type" : "html",
+                "Authorization": `Bearer ${token}`
+            },
+            success : function(data){
+                $("#header").html(data);
+            },
+            error : function (xhr) {
+                alert(msgSession);
+                clearInfo();
+            }
+        })
+    }
+</script>

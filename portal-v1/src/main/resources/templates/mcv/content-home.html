@@ -1,0 +1,203 @@
+<div  xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div class="body-main" sec:authorize="isAuthenticated()">
+        <div class="title mb-3">
+            <h3 class="text-center">Form nhập dữ liệu</h3>
+        </div>
+        <div class="row box-content">
+            <div class="col-12 box-shadow box-product">
+                <fieldset>
+                    <legend>Chọn sản phẩm:</legend>
+                </fieldset>
+                <select class="form-control mb-3" id="select-product">
+                    <option value="">--> Chọn sản phẩm <--</option>
+                    <option th:each="item : ${listProduct}" th:value="${item.getId}" th:text="${item.productName}"></option>
+                </select>
+                <div class="row box-product-content">
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-product">
+                            <label for="product-info-name">Tên sản phẩm :</label>
+                            <input type="text" name="product-info-name" class="form-control" id="product-info-name" >
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-product">
+                            <label for="product-info-sl">Số lượng :</label>
+                            <input type="number" name="product-info-sl" class="form-control" id="product-info-sl" >
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-product">
+                            <label for="product-info-type">Đơn vị tính :</label>
+                            <input type="text" name="product-info-type" class="form-control" id="product-info-type" >
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-product">
+                            <label for="product-info-thue">Phần trăm thuế :</label>
+                            <input type="number" name="product-info-thue" class="form-control" id="product-info-thue" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 box-shadow box-info-a mt-3">
+                <fieldset>
+                    <legend>Thông tin bên A:</legend>
+                </fieldset>
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-info-a">
+                            <label for="address-info-a">Địa chỉ :</label>
+                            <input type="text" name="address-info-a" class="form-control" id="address-info-a" placeholder="Nhập địa chỉ">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-info-a">
+                            <label for="phone-info-a">Điện thoại  :</label>
+                            <input type="text" name="phone-info-a" class="form-control" id="phone-info-a" placeholder="Nhập số điện thoại">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-info-a">
+                            <label for="mst-info-a">Mã số thuế :</label>
+                            <input type="text" name="mst-info-a" class="form-control" id="mst-info-a" placeholder="Nhập mã số thuế̉">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-info-a">
+                            <label for="email-info-a">Email :</label>
+                            <input type="text" name="email-info-a" class="form-control" id="email-info-a" placeholder="Nhập email">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-info-a">
+                            <label for="stk-info-a">Số tài khoản :</label>
+                            <input type="text" name="stk-info-a" class="form-control" id="stk-info-a" placeholder="Nhập Số tài khoản">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-info-a">
+                            <label for="address-bank-info-a">Mở tại Ngân hàng :</label>
+                            <input type="text" name="address-bank-info-a" class="form-control" id="address-bank-info-a" placeholder="Nhập địa chỉ ngân hàng">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-info-a">
+                            <label for="bank-user-info-a">Người đại diện :</label>
+                            <input type="text" name="bank-user-info-a" class="form-control" id="bank-user-info-a" placeholder="Nhập người đại diện">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-info-a">
+                            <label for="bank-user-role-info-a">Chức vụ :</label>
+                            <input type="text" name="bank-user-role-info-a" class="form-control" id="bank-user-role-info-a" placeholder="Nhập chức vụ">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 box-shadow box-info-b mt-3">
+                <fieldset>
+                    <legend>Thông tin bên B:</legend>
+                </fieldset>
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-info-b">
+                            <label for="bank-user-info-b">Người đại diện :</label>
+                            <input type="text" name="bank-user-info-b" class="form-control" id="bank-user-info-b" placeholder="Nhập người đại diện">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-info-b">
+                            <label for="bank-user-role-info-a">Chức vụ :</label>
+                            <input type="text" name="bank-user-role-info-b" class="form-control" id="bank-user-role-info-b" placeholder="Nhập chức vụ">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-info-b">
+                            <label for="email-info-b">Email  :</label>
+                            <input type="text" name="email-info-b" class="form-control" id="email-info-b" placeholder="Nhập email">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-info-b">
+                            <label for="phone-info-b">Điện thoại  :</label>
+                            <input type="text" name="phone-info-b" class="form-control" id="phone-info-b" placeholder="Nhập số điện thoại">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 box-shadow box-info-b mt-3">
+                <fieldset>
+                    <legend>Thông tin thêm :</legend>
+                </fieldset>
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-more">
+                            <label for="more-time">Thời gian triển khai :</label>
+                            <input type="datetime-local" name="more-time" class="form-control" id="more-time" placeholder="Nhập người đại diện">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-more">
+                            <label for="more-deployment-basis">Cơ sở triển khai :</label>
+                            <input type="text" name="more-deployment-basis" class="form-control" id="more-deployment-basis" placeholder="Nhập Cơ sở triển khai">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-more">
+                            <label for="more-deployment-basis-address">Địa chỉ cơ sở triển khai:</label>
+                            <input type="text" name="more-deployment-basis-address" class="form-control" id="more-deployment-basis-address" placeholder="Nhập Địa chỉ cơ sở triển khai">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="item-more">
+                            <label for="more-address-cs">Tỉnh triển khai :</label>
+                            <input type="text" name="more-address-cs" class="form-control" id="more-address-cs" placeholder="Nhập Tỉnh triển khai">
+                        </div>
+                    </div>
+                </div>
+                <div class="box-action">
+                    <button class="btn btn-success">Gửi thông tin</button>
+                    <button class="btn btn-warning">Làm mới</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div sec:authorize="isAnonymous()">
+        <p>This content is visible to anonymous users.</p>
+    </div>
+</div>
+<script>
+    $("#select-product").change(function () {
+        $(".box-product-content").addClass("active");
+        let idProduct = $("#select-product").val();
+        fetch(`${localdomain}/api/asm/v1/get/product?id=${idProduct}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }).then(res => {
+            if (!res.ok) {
+                if (res.status === 500) {
+                    alert(msgSession);
+                    clearInfo();
+                }else if(res.status === 403){
+                    alert(msgAuthor)
+                }else if(res.status !== 200){
+                    alert("Gặp vấn đề khi lấy thông tin Sản phẩm")
+                }
+
+            }
+            return res.json();
+        }).then(data => {
+            $("#product-info-name").val(data.productName);
+            $("#product-info-sl").val(1);
+            $("#product-info-type").val("chiếc");
+            $("#product-info-thue").val(10);
+        }).catch(error => {
+            console.log(error);
+        });
+    });
+</script>
+
+

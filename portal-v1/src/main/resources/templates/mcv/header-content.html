@@ -1,0 +1,68 @@
+<div class="container" xmlns:sec="http://www.w3.org/1999/xhtml">
+  <div class="wrap-hd">
+    <a class="logo" href="/index" title="">
+      <img alt="Tổng công ty Công nghệ - Viễn thông Toàn Cầu (Gtel) "
+           title="Tổng công ty Công nghệ - Viễn thông Toàn Cầu (Gtel) " class=""
+           th:src="@{/web/imgs/logo_cds.png}" />
+    </a>
+    <nav class="d-flex align-items-center justify-content-end">
+      <ul id="main-menu">
+        <li sec:authorize="hasAnyRole('ADMIN', 'USER')">
+          <a href="/index" title="Sản phẩm">Trang chủ</a>
+        </li>
+        <li sec:authorize="hasRole('ADMIN')">
+          <a class="menu-product" title="Sản Phẩm">Sản Phẩm</a>
+        </li>
+        <li sec:authorize="hasRole('ADMIN')">
+          <a class="smooth" data-id="#section3" title="Lịch sử">Lịch sử</a>
+        </li>
+        <li sec:authorize="hasRole('ADMIN')">
+          <a class="menu-user" title="Tài Khoản">Tài Khoản</a>
+        </li>
+
+      </ul>
+      <div id="box_login" class="d-flex  box_login align-items-center tablet">
+        <a class="smooth" style="margin: 0; padding: 0" title="Đăng ký" href="/web/register">Đăng
+          ký</a>
+        <span>/</span>
+        <a class="smooth btn-login" href="/web/login" style="margin: 0; padding: 0"
+           title="Đăng đăng nhập">Đăng
+          nhập</a>
+      </div>
+    </nav>
+
+  </div>
+  <div class="mobi-nav">
+    <div class="close-nav-mobi"><i class="fa fa-bars fa-times-circle-o-nav open-nav-mb"
+                                   aria-hidden="true"></i></div>
+    <div class="nav-mobi-box d-flex flex-column">
+      <ul id="main-menu-mb">
+        <li sec:authorize="hasAnyRole('ADMIN', 'USER')">
+          <a href="/index" title="Sản phẩm">Trang chủ</a>
+        </li>
+        <li sec:authorize="hasRole('ADMIN')">
+          <a class="menu-product" title="Sản Phẩm">Sản Phẩm</a>
+        </li>
+        <li sec:authorize="hasRole('ADMIN')">
+          <a class="smooth" data-id="#section3" title="Lịch sử">Lịch sử</a>
+        </li>
+        <li sec:authorize="hasRole('ADMIN')">
+          <a class="menu-user" title="Tài Khoản">Tài Khoản</a>
+        </li>
+
+
+      </ul>
+      <div id="box_login-phone" class="d-flex  box_login align-items-center phone"
+           style="margin-left: 13px;">
+        <a class="smooth" style="margin: 0; padding: 0" title="Đăng ký" href="/web/register">Đăng ký</a>
+        <span>/</span>
+        <a class="smooth btn-login" href="/web/login" style="margin: 0; padding: 0"
+           title="Đăng đăng nhập">Đăng
+          nhập</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script th:src="@{/web/js/mcv/header-content.js}"></script>
