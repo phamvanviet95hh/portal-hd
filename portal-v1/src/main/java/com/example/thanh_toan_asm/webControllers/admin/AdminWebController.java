@@ -23,32 +23,9 @@ import java.util.List;
 @RequestMapping("web/admin/")
 public class AdminWebController {
 
-
-
-    @Autowired
-    private ProductService productService;
-
-
-
     @GetMapping("login")
     public String adminLogin(Model model) {
         return "admin/login";
-    }
-
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("addProduct")
-    public String addProduct(Model model) {
-
-        return "admin/products/addProduct";
-    }
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("editProduct")
-    public String editProduct(Model model, @RequestParam("id") Long id) {
-        Product product = productService.getProduct(id);
-        model.addAttribute("product", product);
-        return "admin/products/editProduct";
     }
 
 }

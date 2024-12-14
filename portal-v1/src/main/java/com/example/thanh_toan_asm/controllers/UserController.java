@@ -44,8 +44,8 @@ public class UserController {
         return  userService.updatePartner(data, file);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("deletePartner")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<BaseResponse<ResponsePartner>> deletePartner(@RequestParam("id") String data) throws JsonProcessingException {
         Long idPart = Objects.equals(data, "") ? null : Long.parseLong(data);
         return  userService.deletePartner(idPart);

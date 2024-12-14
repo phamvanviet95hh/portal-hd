@@ -60,8 +60,6 @@ public class LoginService {
                         .status(userEntity.getStatus())
                         .updateAt(userEntity.getUpdateAt())
                         .role(userEntity.getRole())
-                        .address(userEntity.getAddress())
-                        .detail(userEntity.getDetail())
                         .createAt(userEntity.getCreateAt())
                         .userName(userEntity.getUserName())
                         .avatar(userEntity.getAvatar())

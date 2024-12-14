@@ -64,7 +64,7 @@
                           <i class="fa fa-map-marker" aria-hidden="true"></i>
                         </div>
                         <div class="w-75 pl-2 ">
-                          <label id="label-address" th:text="${partner.getAddress()}"></label>
+                          <label id="label-address" th:text="${partner.getProvince()}"></label>
                         </div>
                       </div>
                     </div>
@@ -79,7 +79,6 @@
                       <div class="info-content-left w-50">
                         <p class="mb-2">Họ và tên:</p>
                         <b id="info-right-fullName" th:data-value="${partner.getFullName()}" data-key="partnerName" th:text="${partner.getFullName()}"></b>
-                        <!--                                                <a href="#" class="editUserInfo" data-name="Company's name" id="partnerNameInput"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>-->
                       </div>
 
                     </div>
@@ -87,12 +86,10 @@
                       <div class="info-content-left w-50">
                         <p class="mb-1">Số điện thoại</p>
                         <b id="info-right-phoneNumber" th:data-value="${partner.getPhone()}" data-key="partnerPhone" th:text="${partner.getPhone()}"></b>
-                        <!--                                                <a href="#" class="editUserInfo" data-name="Phone number" id="phoneNumberInput"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>-->
                       </div>
                       <div class="info-content-right  w-50">
                         <p class="mb-1">Thư điện tử:</p>
                         <b id="info-right-email" th:data-value="${partner.getEmail()}" data-key="email" th:text="${partner.getEmail()}"></b>
-                        <!--                                                <a href="#" class="editUserInfo" data-name="Email" id="emailInput"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>-->
                       </div>
                     </div>
 
@@ -107,12 +104,10 @@
                       <div class="info-content-left w-50">
                         <p class="mb-1">Người đại diện : </p>
                         <b id="info-right-representative" th:data-value="${partner.getFullName()}" data-key="fullName" th:text="${partner.getFullName()}"></b>
-                        <!--                                                <a href="#" class="editUserInfo" data-name="Representative" id="taxNumberInput"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>-->
                       </div>
                       <div class="info-content-right  w-50">
                         <p class="mb-1">Địa chỉ :</p>
-                        <b id="info-right-address" th:data-value="${partner.getAddress()}" data-key="partnerAddress" th:text="${partner.getAddress()}"></b>
-                        <!--                                                <a href="#" class="editUserInfo" data-name="Address" id="addressInput"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>-->
+                        <b id="info-right-address" th:data-value="${partner.getProvince()}" data-key="partnerAddress" th:text="${partner.getProvince()}"></b>
                       </div>
                     </div>
                   </div>

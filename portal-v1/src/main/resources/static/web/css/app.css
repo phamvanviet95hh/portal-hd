@@ -7080,7 +7080,8 @@ input[type=submit].btn-block {
 }
 
 .tab-content>.active {
-    display: block
+    display: block;
+    opacity: 1;
 }
 
 .navbar {
@@ -7184,6 +7185,25 @@ input[type=submit].btn-block {
     content: "";
     background: no-repeat center center;
     background-size: 100% 100%
+}
+
+
+.register-user-box-checkbox input[type='checkbox']{
+    width: unset;
+    margin-top: 0px;
+}
+.register-user-box-checkbox{
+    padding: 15px;
+    width: 100%;
+}
+.box-checkbox-service{
+    border: 1px solid #9391917d;
+    padding: 15px;
+    border-radius: 5px;
+    display: none;
+}
+.box-checkbox-service.hien{
+    display: block;
 }
 
 @media (max-width:575.98px) {
@@ -13858,6 +13878,27 @@ body.compensate-for-scrollbar {
 .owl-carousel .fadeOut {
     animation-name: fadeOut
 }
+#modalAddGroup,
+#modalAddStatus,
+#modalAddService{
+    background: rgba(51, 51, 51, 0.64);
+}
+.modal-addNewGroups.show,
+.modal-addStatus.show,
+.modal-addService.show{
+    opacity: 1;
+}
+
+.modal-dialog{
+    height: 100%;
+}
+
+.addService-content input{
+    width: 70%;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #3333333b;
+}
 
 @keyframes fadeOut {
     0% {
@@ -18594,17 +18635,16 @@ body {
 }
 
 header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     color: #fff;
-    background-color: #ae2035;
+    background-color: transparent;
     z-index: 11;
     transition: 0.3s;
 }
-.banner-header{
-    background-image: url("../imgs/baner-tet.jpg");
-    height: 350px;
-    width: 100%;
-    box-shadow: 6px 2px 11px 5px #3333339c;
-}
+
 header .d-nav>ul>li {
     display: inline-block;
     position: relative;
@@ -18644,7 +18684,37 @@ header .wrap-hd .logo img {
     transition: 0.5s ease-in-out;
 }
 
+header.scroll,
+header.scroll-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 0;
+    box-shadow: 0px 3px 7px 3px rgba(0, 0, 0, 0.3);
+    background-color: #ae2035;
+}
 
+header.scroll .logo,
+header.scroll-page .logo {
+    transition: 0.3s;
+}
+
+header.scroll .d-nav>ul>li>a,
+header.scroll-page .d-nav>ul>li>a {
+    padding: 10px 0;
+    margin: 20px 0;
+}
+
+header.scroll .wrap-hd .logo,
+header.scroll-page .wrap-hd .logo {
+    flex: 0 0 220px;
+}
+
+header.scroll .wrap-hd .logo img,
+header.scroll-page .wrap-hd .logo img {
+    transition: 0.5s ease-in-out;
+}
 
 @media (max-width: 1599px) {
     header .d-nav>ul>li>a {
@@ -20545,6 +20615,11 @@ a.btn-pri:hover {
 
 header.scroll .d-nav>ul>li>a {
     margin: 0 !important;
+}
+
+
+.alert-danger.opa{
+    opacity: 1 !important;
 }
 
 @media only screen and (max-width: 1200px) {

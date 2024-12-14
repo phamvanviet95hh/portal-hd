@@ -50,7 +50,6 @@ public class UserService {
                     success = true;
                     message = "Insert data success!!!";
                     register = UserUntity.builder()
-                            .address(userRegisterDto.getAddress())
                             .updateAt(LocalDateTime.now())
                             .avatar(userRegisterDto.getAvatar())
                             .userName(userRegisterDto.getUserName())
@@ -139,7 +138,6 @@ public class UserService {
                     .phone(userUntity.getPhone())
                     .email(userUntity.getEmail())
                     .fullName(userUntity.getFullName())
-                    .address(userUntity.getAddress())
                     .build();
             success = true;
             message = "Updated Successfully";
@@ -171,5 +169,10 @@ public class UserService {
 
         return new ResponseEntity<>(new BaseResponse<>(
                 success, message, null), HttpStatusCode.valueOf(HttpStatus.OK.value()));
+    }
+
+
+    public List<UserUntity> loadListUserFrom(String data) {
+        return userRepository.loadListUserFrom(data);
     }
 }

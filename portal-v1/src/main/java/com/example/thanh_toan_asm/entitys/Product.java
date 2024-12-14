@@ -28,8 +28,6 @@ public class Product {
     private String productName;
     private String productDescription;
     private Long productPrice;
-    private Long productOldPrice;
-    private Long productSalePrice;
 
     @Column(columnDefinition = "TEXT")
     private String productImage;
@@ -37,12 +35,17 @@ public class Product {
     private String status;
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
-    private LocalDateTime deleteAt;
-    private String link;
 
     @ManyToOne
     @JoinColumn(name = "user_id", unique = false)
     private UserUntity userEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "cate_id", unique = false)
+    private CategoryProduct categoryProduct;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private Set<Contract> histories;
 
 
     public ConvertProductDto getVo() {

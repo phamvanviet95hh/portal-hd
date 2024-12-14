@@ -12,4 +12,7 @@ public interface UserRepository extends JpaRepository<UserUntity, Long> {
 
     @Query("select new com.example.thanh_toan_asm.dtos.admins.users.CustomListUser(u.id, u.userName, u.fullName, u.role, u.createAt) from UserUntity u")
     List<CustomListUser> customGetListUser();
+
+    @Query("SELECT u from UserUntity u where u.fullName LIKE %:data%")
+    List<UserUntity> loadListUserFrom(String data);
 }

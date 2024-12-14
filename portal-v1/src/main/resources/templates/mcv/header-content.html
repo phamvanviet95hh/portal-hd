@@ -1,4 +1,5 @@
-<div class="container" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<div class="container" >
   <div class="wrap-hd">
     <a class="logo" href="/index" title="">
       <img alt="Tổng công ty Công nghệ - Viễn thông Toàn Cầu (Gtel) "
@@ -11,7 +12,13 @@
           <a href="/index" title="Sản phẩm">Trang chủ</a>
         </li>
         <li sec:authorize="hasRole('ADMIN')">
+          <a class="menu-category-product" title="Sản Phẩm">Danh mục sản shẩm</a>
+        </li>
+        <li sec:authorize="hasRole('ADMIN')">
           <a class="menu-product" title="Sản Phẩm">Sản Phẩm</a>
+        </li>
+        <li sec:authorize="hasRole('ADMIN')">
+          <a class="menu-partner" title="Sản Phẩm">Khách hàng</a>
         </li>
         <li sec:authorize="hasRole('ADMIN')">
           <a class="smooth" data-id="#section3" title="Lịch sử">Lịch sử</a>
@@ -22,9 +29,6 @@
 
       </ul>
       <div id="box_login" class="d-flex  box_login align-items-center tablet">
-        <a class="smooth" style="margin: 0; padding: 0" title="Đăng ký" href="/web/register">Đăng
-          ký</a>
-        <span>/</span>
         <a class="smooth btn-login" href="/web/login" style="margin: 0; padding: 0"
            title="Đăng đăng nhập">Đăng
           nhập</a>
@@ -41,7 +45,13 @@
           <a href="/index" title="Sản phẩm">Trang chủ</a>
         </li>
         <li sec:authorize="hasRole('ADMIN')">
+          <a class="menu-category-product" title="Sản Phẩm">Danh mục sản shẩm</a>
+        </li>
+        <li sec:authorize="hasRole('ADMIN')">
           <a class="menu-product" title="Sản Phẩm">Sản Phẩm</a>
+        </li>
+        <li sec:authorize="hasRole('ADMIN')">
+          <a class="menu-partner" title="Sản Phẩm">Khách hàng</a>
         </li>
         <li sec:authorize="hasRole('ADMIN')">
           <a class="smooth" data-id="#section3" title="Lịch sử">Lịch sử</a>
@@ -54,8 +64,6 @@
       </ul>
       <div id="box_login-phone" class="d-flex  box_login align-items-center phone"
            style="margin-left: 13px;">
-        <a class="smooth" style="margin: 0; padding: 0" title="Đăng ký" href="/web/register">Đăng ký</a>
-        <span>/</span>
         <a class="smooth btn-login" href="/web/login" style="margin: 0; padding: 0"
            title="Đăng đăng nhập">Đăng
           nhập</a>

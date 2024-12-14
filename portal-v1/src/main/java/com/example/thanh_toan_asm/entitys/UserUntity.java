@@ -30,10 +30,8 @@ public class UserUntity {
 
     private String fullName;
     private String password;
-    private String address;
     private String email;
     private String phone;
-    private String detail;
     private String status;
 
     @Column(columnDefinition = "TEXT")
@@ -46,9 +44,22 @@ public class UserUntity {
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
     private Set<Product> productSet;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Contract> histories;
+
+    @ManyToOne
+    @JoinColumn(name = "province_id")
+    private Province province;
+
+    @ManyToOne
+    @JoinColumn(name = "ward_id")
+    private Ward ward;
+
+    @ManyToOne
+    @JoinColumn(name = "district_id")
+    private Districts districts;
+
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
-    private Set<Menu> menus;
-
-
+    private Set<CategoryProduct> categoryProducts;
 
 }

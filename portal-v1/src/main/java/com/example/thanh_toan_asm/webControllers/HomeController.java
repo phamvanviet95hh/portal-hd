@@ -33,10 +33,15 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("dashboard")
+    public String dashboard(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("authentication :" +authentication);
+        return "web/dashboard";
+    }
+
     @GetMapping("web/cart")
     public String cart(Model model){
-
-
         return "carts/cart";
     }
 
@@ -58,14 +63,9 @@ public class HomeController {
     }
 
 
-    @GetMapping("web/header")
+    @GetMapping("web/content-home-menu")
     public String header(){
-        return "mcv/header-content";
-    }
-
-    @GetMapping("web/register")
-    public String register(Model model){
-        return "registers/register";
+        return "mcv/content-home-menu";
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -87,9 +87,5 @@ public class HomeController {
         return "admin/products/product";
     }
 
-    @GetMapping("web/login")
-    public String login(){
-        return "web/login";
-    }
 
 }

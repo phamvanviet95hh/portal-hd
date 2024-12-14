@@ -5,10 +5,7 @@ let fullName = localStorage.getItem("fullName") !== null ? localStorage.getItem(
 let username = localStorage.getItem("username") !== null ? localStorage.getItem("username") : sessionStorage.getItem("username");
 let userId = localStorage.getItem("userId") !== null ? localStorage.getItem("userId") : sessionStorage.getItem("userId");
 let role = localStorage.getItem("role") !== null ? localStorage.getItem("role") : sessionStorage.getItem("role");
-let phone = localStorage.getItem("phone") !== null ? localStorage.getItem("phone") : sessionStorage.getItem("phone");
-let email = localStorage.getItem("email") !== null ? localStorage.getItem("email") : sessionStorage.getItem("email");
-let address = localStorage.getItem("address") !== null ? localStorage.getItem("address") : sessionStorage.getItem("address");
-let msgSession = "Hết phiên đăng nhập";
+let msgSession = "Hết phiên đăng nhập hoặc chưa đăng nhập vui lòng đăng nhập trước";
 let msgAuthor = "Bạn không có quyền truy cập web này";
 
 function clearInfo() {
@@ -16,14 +13,45 @@ function clearInfo() {
     localStorage.removeItem("userId");
     localStorage.removeItem("fullName");
     localStorage.removeItem("role");
+    localStorage.removeItem("token");
+    localStorage.removeItem("phone");
+    localStorage.removeItem("email");
+    localStorage.removeItem("address");
+    localStorage.removeItem("cart");
+    
     sessionStorage.removeItem("username");
     sessionStorage.removeItem("userId");
     sessionStorage.removeItem("fullName");
     sessionStorage.removeItem("role");
-    window.location.href = `${localdomain}/web/login`;
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("phone");
+    sessionStorage.removeItem("email");
+    sessionStorage.removeItem("address");
+    sessionStorage.removeItem("cart");
+    window.location.href = `${localdomain}/index`;
 }
 
+function checkFromEmpty( data ,idElement, msg, check){
+    if (data === ""){
+        check = false;
+        $("#"+idElement).html(msg);
+    }else {
+        $("#"+idElement).html("")
+    }
+    return check;
+}
 
+function checkInputEmpty(input, idElement, msg, checkInput){
+    $("#"+input).keyup(function (){
+        if($(this).val() !== ""){
+            $("#"+idElement).html("");
+        }else {
+            checkInput = false;
+            $("#"+idElement).html(msg);
+        }
+    });
+    return checkInput;
+}
 
 function alertGloable(message, type) {
     if (type === "success") {
@@ -73,7 +101,8 @@ function xoa(url, id) {
     fetch(`${url}?id=${id}`, {
         method: "DELETE",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         }
     }).then(res => {
         if (!res.ok) {
@@ -87,7 +116,9 @@ function xoa(url, id) {
         return res.json();
     }).then(data => {
         if (data.success) {
-            alertGloable("Bạn vừa xoá danh mục thành công", "success");
+            alertGloable(data.message, "success");
+        }else {
+            alertGloable(data.message, "false");
         }
     }).catch(err => {
         console.error('There has been a problem with your fetch operation:', err);
@@ -211,3 +242,27 @@ function customDelete(url, id) {
         console.error('There has been a problem with your fetch operation:', err);
     })
 }
+$(document).ready(function () {
+    function updateClock() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+    }
+    
+    setInterval(updateClock, 1000);
+    updateClock();
+    const today = new Date();
+    
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const year = today.getFullYear();
+    
+    const currentDate = `${day}/${month}/${year}`;
+    document.getElementById('dateTime').textContent = `${currentDate}`;
+    const daysOfWeek = ["Chủ nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"];
+    
+    const currentDay = daysOfWeek[today.getDay()];
+    document.getElementById('dateThu').textContent = `${currentDay}`;
+});

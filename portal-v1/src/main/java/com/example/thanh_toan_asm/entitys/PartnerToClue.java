@@ -6,22 +6,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Entity
-@Table(name = "alias")
+@Table(name = "partner_to_clue")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class Alias {
+public class PartnerToClue {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String alias;
-    private String detail;
-    private LocalDateTime updateAt;
-    private LocalDateTime createAt;
-    private String status;
+    @ManyToOne
+    @JoinColumn(name = "partner_id")
+    private Partner partner;
+
+    @ManyToOne
+    @JoinColumn(name = "clue_id")
+    private Clue clue;
 }

@@ -8,7 +8,6 @@ import com.example.thanh_toan_asm.dtos.request.ProductCreationRequest;
 import com.example.thanh_toan_asm.dtos.request.ProductUpdateRequest;
 import com.example.thanh_toan_asm.entitys.Product;
 import com.example.thanh_toan_asm.entitys.UserUntity;
-import com.example.thanh_toan_asm.repositorys.AliasRepository;
 import com.example.thanh_toan_asm.repositorys.ProductRepository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,8 +47,7 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
-    @Autowired
-    AliasRepository aliasRepository;
+
 
     public ResponseEntity<ResponProductGloableDto> createProduct(String request, MultipartFile file)
             throws IOException {
@@ -72,7 +70,6 @@ public class ProductService {
                     .status(requestProductCategoryDto.getStatus())
                     .productDescription(requestProductCategoryDto.getProductDescription())
                     .productPrice(requestProductCategoryDto.getProductPrice())
-                    .link(requestProductCategoryDto.getLink())
                     .updateAt(LocalDateTime.now())
                     .createAt(LocalDateTime.now())
                     .userEntity(new UserUntity(requestProductCategoryDto.getUserId()))

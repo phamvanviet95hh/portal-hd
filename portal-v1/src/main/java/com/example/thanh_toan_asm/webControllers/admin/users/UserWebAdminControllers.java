@@ -2,8 +2,10 @@ package com.example.thanh_toan_asm.webControllers.admin.users;
 
 
 import com.example.thanh_toan_asm.dtos.admins.users.CustomListUser;
+import com.example.thanh_toan_asm.dtos.provices.ResponseProvince;
 import com.example.thanh_toan_asm.entitys.UserUntity;
 import com.example.thanh_toan_asm.services.UserService;
+import com.example.thanh_toan_asm.services.provinces.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -21,10 +23,13 @@ public class UserWebAdminControllers {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ProvinceService provinceService;
+
+
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("inforUser")
     public String editProduct(Model model, @RequestParam("idUser") Long id) {
-        System.out.println(id);
         UserUntity us = userService.getInfoUser(id);
         model.addAttribute("partner", us);
         return "admin/users/infoUser";
@@ -45,5 +50,24 @@ public class UserWebAdminControllers {
         List<CustomListUser> customListUsers = userService.customGetListUser();
         model.addAttribute("customListUsers", customListUsers);
         return "admin/users/list-user";
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("register")
+    public String register(Model model){
+
+        List<ResponseProvince> listProvince = provinceService.getListProvinceWeb();
+        System.out.println(listProvince);
+        model.addAttribute("listProvince", listProvince);
+        return "registers/register";
+    }
+
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @GetMapping("loadListUserFrom")
+    public String loadListUserFrom(Model model, @RequestParam("name") String data){
+
+        List<UserUntity> listUsers = userService.loadListUserFrom(data);
+        model.addAttribute("listUsers", listUsers);
+        return "admin/users/loadListUser";
     }
 }

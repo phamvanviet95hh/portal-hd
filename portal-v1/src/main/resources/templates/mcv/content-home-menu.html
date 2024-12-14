@@ -1,0 +1,66 @@
+<ul class="metismenu" id="side-menu" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+  <li class="menu-title">Navigation</li>
+
+  <li sec:authorize="hasAnyRole('ADMIN', 'USER')">
+    <a id="dashboard">
+      <i class="fa fa-tachometer" aria-hidden="true"></i>
+
+      <span> Dashboard </span>
+    </a>
+  </li>
+  <li class="partner" sec:authorize="hasRole('ADMIN')">
+    <a class="click" id="viewListUser" href="#">
+      <i class="fa fa-file-text-o" aria-hidden="true"></i>
+      <span> Quản lý User </span>
+    </a>
+  </li>
+  <li class="partner" sec:authorize="hasRole('ADMIN')">
+    <a class="click" id="viewListPartner" href="#">
+      <i class="fa fa-file-text-o" aria-hidden="true"></i>
+      <span> Quản lý khách hàng </span>
+    </a>
+  </li>
+  <li class="qlService" sec:authorize="hasRole('ADMIN')">
+    <a class="click" id="viewDv" href="#">
+      <i class="fa fa-rocket" aria-hidden="true"></i>
+      <span> Quản lý đầu mối </span>
+    </a>
+  </li>
+  <li sec:authorize="hasRole('ADMIN')">
+    <a class="click" id="viewReport" href="#">
+      <i class="fa fa-file-text-o" aria-hidden="true"></i>
+      <span> Quản lý danh mục sản phẩm </span>
+    </a>
+  </li>
+  <li class="transaction" sec:authorize="hasRole('ADMIN')">
+    <a class="click transactionLink" id="transactionLink">
+      <i class="fa fa-line-chart" aria-hidden="true"></i>
+      <span> Quản lý sản phẩm</span>
+    </a>
+
+  </li>
+  <li sec:authorize="hasAnyRole('ADMIN', 'USER')">
+    <a class="click" id="contract" href="#">
+      <i class="fa fa-file-text-o" aria-hidden="true"></i>
+      <span> Quản lý hợp đồng </span>
+      <i class="fa fa-sort-desc" aria-hidden="true"></i>
+    </a>
+    <ul class="ul-children">
+      <li class="status">
+        <a class="click contract-form" id="contract-form">
+          <i class="fa fa-cogs" aria-hidden="true"></i>
+          <span>Form nhập dữ liệu</span>
+        </a>
+      </li>
+      <li class="qly-contract">
+        <a class="click qly-contract-list" id="qly-contract-list">
+          <i class="fa fa-cogs" aria-hidden="true"></i>
+          <span>Quản lý lịch sử hợp đồng</span>
+        </a>
+      </li>
+    </ul>
+  </li>
+
+</ul>
+<script th:src="@{/web/js/menu/content-home-menu.js}"></script>

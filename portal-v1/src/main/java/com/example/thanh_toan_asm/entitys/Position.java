@@ -7,27 +7,30 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
-@Table(name = "contacts")
+@Table(name = "position")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class Contacts {
+public class Position {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String fullName;
-    private String phone;
-    private String email;
-    private String address;
-    private String comment;
-
+    private String positionName;
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
-    private LocalDateTime deleteAt;
 
+    @OneToMany(mappedBy = "positions", cascade = CascadeType.ALL)
+    private Set<Contract> histories;
+
+    @OneToMany(mappedBy = "positions", cascade = CascadeType.ALL)
+    private Set<Partner> partners;
+
+    @OneToMany(mappedBy = "positions", cascade = CascadeType.ALL)
+    private Set<Clue> clues;
 }

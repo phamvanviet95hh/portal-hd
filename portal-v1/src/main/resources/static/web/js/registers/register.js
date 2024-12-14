@@ -7,27 +7,20 @@ $(document).ready(function (){
     
     $(document).ready(function (){
         let checkFormSend = true;
+        let district = $("#form_quan-register");
+        let ward = $("#form_xa-register");
         let msg = "Không được để trống trường này...";
         $(".btn-backToHome").click(function (){
             window.location.href = `${localdomain}/index`;
         });
-        let district = $("#form_quan-register");
-        let ward = $("#form_xa-register");
         $(".btn-registerSend").click(function (){
-           
             let fullName = $("#register-input-fullName").val();
             let userName = $("#register-input-userName").val();
             let password = $("#register-input-password").val();
             let rePassword = $("#register-input-rePassword").val();
             let phoneNumber = $("#register-input-phone").val();
             let email = $("#register-input-email").val();
-            let address = "";
-            if ($("#form_duong-register").val() !== ""){
-                address = $("#form_duong-register").val()+ "," + $("#form_xa-register").val() + "," + $("#form_quan-register").val()+","+$("#form_tinh-register").val();
-            }else{
-                address = $("#form_xa-register").val() + "," + $("#form_quan-register").val()+","+$("#form_tinh-register").val();
-            }
-            
+            let address = $("#address-input").val();
             if(fullName === ""){
                 checkFormSend=false;
                 $("#form-error-register-fullName").html(msg);
@@ -43,6 +36,9 @@ $(document).ready(function (){
             }else if(phoneNumber === ""){
                 checkFormSend=false;
                 $("#form-error-register-phone").html(msg);
+            }else if(address === ""){
+                checkFormSend=false;
+                $("#form-error-register-address").html(msg);
             } else {
                 if (password !== rePassword){
                     checkFormSend=false;
@@ -99,11 +95,11 @@ $(document).ready(function (){
         $("#form_tinh-register").change(function (){
             const selectedOption = this.options[this.selectedIndex];
             let idProvince = selectedOption.getAttribute("data-code");
-            console.log(idProvince)
             fetch(`${localdomain}/web/district/getDistrict?provincesId=${idProvince}`, {
                 method : "GET",
                 headers : {
-                    "Content-Type" : "application/json"
+                    "Content-Type" : "application/json",
+                    "Authorization": `Bearer ${token}`
                 }
             }).then(res => {
                 if (!res.ok){
