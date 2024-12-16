@@ -35,8 +35,6 @@ public class HomeController {
 
     @GetMapping("dashboard")
     public String dashboard(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("authentication :" +authentication);
         return "web/dashboard";
     }
 
@@ -49,16 +47,12 @@ public class HomeController {
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("web/content-home")
     public String contentHome(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication);
         List<Product> products1 = productService.getAllProduct();
         List<ConvertProductDto> convertProductDtos = new ArrayList<>();
         for (Product item : products1) {
             convertProductDtos.add(item.getVo());
         }
-        System.out.println(convertProductDtos);
         model.addAttribute("listProduct", convertProductDtos);
-
         return "mcv/content-home";
     }
 
@@ -82,7 +76,6 @@ public class HomeController {
         for (Product item : products) {
             convertProductDtos.add(item.getVo());
         }
-        System.out.println(convertProductDtos);
         model.addAttribute("listProduct", convertProductDtos);
         return "admin/products/product";
     }

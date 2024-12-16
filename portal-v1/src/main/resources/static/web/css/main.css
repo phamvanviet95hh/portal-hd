@@ -1397,3 +1397,6 @@ li.partner i.fa-users{
 .btn-register{
     margin-right: 10px;
 }
+.form-select{
+    height: 35px !important;
+}

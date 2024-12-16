@@ -42,6 +42,10 @@ public class Ward {
     @OneToMany(mappedBy = "ward", cascade = CascadeType.ALL)
     private Set<UserUntity> userUntities;
 
+    public Ward(Long wardId) {
+        this.code = wardId.toString();
+    }
+
 
     public ResponseProvince getVo() {
         ResponseProvince responseProvince = new ResponseProvince();

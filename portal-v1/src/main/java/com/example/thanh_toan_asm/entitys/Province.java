@@ -18,6 +18,7 @@ import java.util.Set;
 @Data
 @Builder
 public class Province {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String code;
@@ -50,9 +51,17 @@ public class Province {
         this.code = provincesId;
     }
 
+    public Province(Long provinceId) {
+        this.code = provinceId.toString();
+    }
+
     public ResponseProvince getVo() {
         ResponseProvince responseProvince = new ResponseProvince();
         BeanUtils.copyProperties(this, responseProvince);
         return responseProvince;
+    }
+
+    public Province orElseThrow(Object provinceNotFound) {
+        return null;
     }
 }

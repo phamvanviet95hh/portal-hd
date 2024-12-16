@@ -40,6 +40,7 @@
                             <div class="register-form-group mb-5">
                                 <input type="email" placeholder="Nhập email" maxlength="255" autocomplete="off" class="register-input register-input-email" id="register-input-email">
                                 <label for="register-input-email">Email:</label>
+                                <div class="error-register" id="form-register-input-email"></div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-12 mb-3">
@@ -48,7 +49,7 @@
                                 <div class="col-6 mb-3 form-select-tt">
                                     <select class="form-control form-select" aria-label="Default select example" id="form_tinh-register">
                                         <option value=""  selected>Chọn tỉnh thành</option>
-                                        <option th:each="item : ${listProvince}" th:text="${item.getFullName()}" th:data-code="${item.getCode()}"></option>
+                                        <option th:each="item : ${listProvince}" th:text="${item.getFullName()}" th:value="${item.getCode()}"></option>
                                     </select>
                                 </div>
                                 <div class="col-6 mb-3 ps-0 form-select-tt">

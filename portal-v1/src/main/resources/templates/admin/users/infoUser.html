@@ -64,7 +64,7 @@
                           <i class="fa fa-map-marker" aria-hidden="true"></i>
                         </div>
                         <div class="w-75 pl-2 ">
-                          <label id="label-address" th:text="${partner.getProvince()}"></label>
+                          <label id="label-address" th:text="${partner.getAddress()}"></label>
                         </div>
                       </div>
                     </div>
@@ -107,7 +107,7 @@
                       </div>
                       <div class="info-content-right  w-50">
                         <p class="mb-1">Địa chỉ :</p>
-                        <b id="info-right-address" th:data-value="${partner.getProvince()}" data-key="partnerAddress" th:text="${partner.getProvince()}"></b>
+                        <b id="info-right-address" th:data-value="${partner.getAddress()}" data-key="partnerAddress" th:text="${partner.getAddress()}"></b>
                       </div>
                     </div>
                   </div>

@@ -6,7 +6,6 @@ $(document).ready(function (){
     });
     
     $(document).ready(function (){
-        let checkFormSend = true;
         let district = $("#form_quan-register");
         let ward = $("#form_xa-register");
         let msg = "Không được để trống trường này...";
@@ -14,50 +13,36 @@ $(document).ready(function (){
             window.location.href = `${localdomain}/index`;
         });
         $(".btn-registerSend").click(function (){
+            let check = true;
             let fullName = $("#register-input-fullName").val();
             let userName = $("#register-input-userName").val();
             let password = $("#register-input-password").val();
             let rePassword = $("#register-input-rePassword").val();
             let phoneNumber = $("#register-input-phone").val();
             let email = $("#register-input-email").val();
-            let address = $("#address-input").val();
-            if(fullName === ""){
-                checkFormSend=false;
-                $("#form-error-register-fullName").html(msg);
-            }else if(userName === ""){
-                checkFormSend=false;
-                $("#form-error-register-userName").html(msg);
-            }else if(password === ""){
-                checkFormSend=false;
-                $("#form-error-register-password").html(msg);
-            }else if(rePassword === ""){
-                checkFormSend=false;
-                $("#form-error-register-rePassword").html(msg);
-            }else if(phoneNumber === ""){
-                checkFormSend=false;
-                $("#form-error-register-phone").html(msg);
-            }else if(address === ""){
-                checkFormSend=false;
-                $("#form-error-register-address").html(msg);
-            } else {
-                if (password !== rePassword){
-                    checkFormSend=false;
-                    $("#form-error-register-rePassword").html("Nhập mật khẩu không khớp...");
-                }else {
-                    checkFormSend=true;
-                    $("#form-error-register-fullName").html("");
-                    $("#form-error-register-userName").html("");
-                    $("#form-error-register-password").html("");
-                    $("#form-error-register-phone").html("");
-                    $("#form-error-register-address").html("");
-                    $("#form-error-register-rePassword").html("");
-                }
+            let idTinh = $("#form_tinh-register").val();
+            let idHuyen = $("#form_quan-register").val();
+            let idXa = $("#form_xa-register").val();
+            
+            check = checkFromEmpty(fullName, "form-error-register-fullName", msg, check);
+            check = checkFromEmpty(userName, "form-error-register-userName", msg, check);
+            check = checkFromEmpty(password, "form-error-register-password", msg, check);
+            check = checkFromEmpty(rePassword, "form-error-register-rePassword", msg, check);
+            check = checkFromEmpty(phoneNumber, "form-error-register-phone", msg, check);
+            check = checkFromEmpty(email, "form-register-input-email", msg, check);
+            check = checkFromEmpty(idXa, "form-error-register-address", msg, check);
+            
+            if (password !== rePassword){
+                check=false;
+                $("#form-error-register-rePassword").html("Nhập mật khẩu không khớp...");
+            }else {
+                $("#form-error-register-rePassword").html("");
             }
-
-            if (checkFormSend){
+            
+            if(check){
                 let itemThongBao = document.getElementById("thongbao");
                 let endpointLogin = `${localdomain}/user/v1/add`
-                var bodyData = JSON.stringify({ userName: userName , fullName : fullName, password : password, address : address, email : email, phone: phoneNumber, detail: "Partner", status: "1", role: "USER"});
+                var bodyData = JSON.stringify({ userName: userName , fullName : fullName, password : password, provinceId : idTinh, districtId : idHuyen, wardId : idXa, email : email, phone: phoneNumber, detail: "Partner", status: "1", role: "USER"});
                 fetch(endpointLogin, {
                     method: 'POST',
                     headers: {
@@ -79,22 +64,23 @@ $(document).ready(function (){
                         <i class="fa fa-check-circle-o" aria-hidden="true"></i>
                     </div>
                     <div class="mb-5">Đăng ký tài khoản thành công</div>`;
-                    itemThongBao.innerHTML = thongbao;
-                    
+                            itemThongBao.innerHTML = thongbao;
+                            
                             
                         }
                     })
                     .catch(error => {
                         console.error('There has been a problem with your fetch operation:', error);
                     });
-                   
+            }else {
+                console.log("sjdbashgdvashdvashdvsgh")
             }
             
         });
         
         $("#form_tinh-register").change(function (){
             const selectedOption = this.options[this.selectedIndex];
-            let idProvince = selectedOption.getAttribute("data-code");
+            let idProvince = selectedOption.getAttribute("value");
             fetch(`${localdomain}/web/district/getDistrict?provincesId=${idProvince}`, {
                 method : "GET",
                 headers : {
@@ -112,7 +98,7 @@ $(document).ready(function (){
                     
                     data.data.map(value => {
                         contentDistrict += `
-                        <option data-code="${value.code}"> ${value.fullName} </option>
+                        <option value="${value.code}"> ${value.fullName} </option>
                     `;
                     })
                     district.html(contentDistrict);
@@ -125,7 +111,7 @@ $(document).ready(function (){
         })
         district.change(function (){
             const selectedOption = this.options[this.selectedIndex];
-            let idProvince = selectedOption.getAttribute("data-code");
+            let idProvince = selectedOption.getAttribute("value");
             fetch(`${localdomain}/web/ward/getList?districtId=${idProvince}`, {
                 method : "GET",
                 headers : {
@@ -141,7 +127,7 @@ $(document).ready(function (){
                     let contentWard = ""
                     data.data.map(value => {
                         contentWard += `
-                        <option data-code="${value.code}"> ${value.fullName} </option>
+                        <option value="${value.code}"> ${value.fullName} </option>
                     `;
                     })
                     ward.html(contentWard);

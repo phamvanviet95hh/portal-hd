@@ -61,18 +61,45 @@
                                         <div class="register-user-content mb-2">
                                             <p class="mb-0">Tên tài khoản:</p>
                                             <input type="text" placeholder="Tên đơn vị..." th:value="${userUntity.getFullName()}" name="fullNameRegister" id="fullNameRegister" />
+                                            <p class="mb-0" style="color: red; font-size: 12px; font-style: italic;" id="errorFullName"></p>
                                         </div>
                                         <div class="register-user-content mb-2">
                                             <p class="mb-0">Email:</p>
                                             <input type="email" placeholder="Email..." th:value="${userUntity.getEmail()}" name="email" id="email" />
+                                            <p class="mb-0" style="color: red; font-size: 12px; font-style: italic;" id="errorEmail"></p>
                                         </div>
                                         <div class="register-user-content mb-2">
                                             <p class="mb-0">Số điện thoại :</p>
                                             <input type="text" placeholder="Số điện thoại..." th:value="${userUntity.getPhone()}" name="phoneRegister" id="phoneRegister" maxlength="10" />
+                                            <p class="mb-0" style="color: red; font-size: 12px; font-style: italic;" id="errorPhone"></p>
                                         </div>
                                         <div class="register-user-content mb-2">
                                             <p class="mb-0">Địa chỉ :</p>
-                                            <input type="text" placeholder="Địa chỉ ..." th:value="${userUntity.getAddress()}" name="addressRegister" id="addressRegister" />
+                                            <div class="row">
+                                                <div class="col-6 mb-3 form-select-tt">
+                                                    <select class="form-control form-select" aria-label="Default select example" id="form_tinh-edit">
+                                                        <option value=""  selected>Chọn tỉnh thành</option>
+                                                        <option th:each="item : ${listProvince}" th:text="${item.getFullName()}" th:value="${item.getCode()}" th:selected="${item.getCode() == userUntity.getProvince().getCode()}"></option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-6 mb-3 ps-0 form-select-tt">
+                                                    <select class="form-control form-select" aria-label="Default select example" id="form_quan-edit">
+                                                        <option th:value="${userUntity.getDistricts().getCode()}" th:text="${userUntity.getDistricts().getFullName()}"></option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-6 mb-3 form-select-tt">
+                                                    <select class="form-control form-select" aria-label="Default select example" id="form_xa-edit">
+                                                        <option th:value="${userUntity.getWard().getCode()}" th:text="${userUntity.getWard().getFullName()}"></option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-6 mb-3 ps-0">
+                                                    <input type="text" class="form-control" id="form_duong-register" placeholder="Số nhà, tên đường">
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="error-register" id="form-error-edit-address"></div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

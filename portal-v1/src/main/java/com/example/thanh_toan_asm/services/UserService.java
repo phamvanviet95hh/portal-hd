@@ -8,9 +8,12 @@ import com.example.thanh_toan_asm.dtos.admins.users.RequestUpdatePartnerDtos;
 import com.example.thanh_toan_asm.dtos.admins.users.ResponsePartner;
 import com.example.thanh_toan_asm.dtos.registerUser.UserRegisterDto;
 import com.example.thanh_toan_asm.dtos.registerUser.UserRegisterRespon;
-import com.example.thanh_toan_asm.entitys.Product;
-import com.example.thanh_toan_asm.entitys.UserUntity;
+import com.example.thanh_toan_asm.entitys.*;
 import com.example.thanh_toan_asm.repositorys.UserRepository;
+import com.example.thanh_toan_asm.repositorys.districts.DistrictRepository;
+import com.example.thanh_toan_asm.repositorys.partners.PartnerRepository;
+import com.example.thanh_toan_asm.repositorys.provices.ProvincesRepository;
+import com.example.thanh_toan_asm.repositorys.wards.WardsRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +40,16 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private ProvincesRepository provinceRepository;
+
+    @Autowired
+    private DistrictRepository districtRepository;
+
+    @Autowired
+    private WardsRepository wardsRepository;
+
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
@@ -45,8 +58,10 @@ public class UserService {
     public ResponseEntity<UserRegisterRespon> registerUser(UserRegisterDto userRegisterDto){
 
                 UserUntity register = userRepository.findFirstByUserName(userRegisterDto.getUserName());
-        System.out.println(register);
                 if (register == null) {
+                    Province province = provinceRepository.findByCode(userRegisterDto.getProvinceId());
+                    Districts districts = districtRepository.findByCode(userRegisterDto.getDistrictId());
+                    Ward ward = wardsRepository.findByCode(userRegisterDto.getWardId());
                     success = true;
                     message = "Insert data success!!!";
                     register = UserUntity.builder()
@@ -54,11 +69,20 @@ public class UserService {
                             .avatar(userRegisterDto.getAvatar())
                             .userName(userRegisterDto.getUserName())
                             .createAt(LocalDateTime.now())
+                            .province(province)
+                            .districts(districts)
+                            .ward(ward)
                             .password(passwordEncoder.encode(userRegisterDto.getPassword()))
                             .role(userRegisterDto.getRole())
                             .status(userRegisterDto.getStatus())
                             .fullName(userRegisterDto.getFullName())
+                            .email(userRegisterDto.getEmail())
+                            .phone(userRegisterDto.getPhone())
                             .build();
+                    log.info("ward :" + ward.toString());
+                    log.info("districts :" + districts.toString());
+                    log.info("province :" + province.toString());
+                    log.info("register :" + register.toString());
                     UserUntity userEntity = userRepository.save(register);
                     System.out.println(userEntity.getId());
                     statusCode = HttpStatus.CREATED.value();

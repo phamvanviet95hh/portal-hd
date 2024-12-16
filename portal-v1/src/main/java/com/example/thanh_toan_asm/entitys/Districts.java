@@ -51,6 +51,10 @@ public class Districts {
 
     }
 
+    public Districts(Long districtId) {
+        this.code = districtId.toString();
+    }
+
     public ResponseProvince getVo() {
 
         ResponseProvince responseDistrict = new ResponseProvince();

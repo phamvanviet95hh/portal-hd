@@ -55,7 +55,8 @@ $(".btn-sendChangePassword").click(function (){
         fetch(`${localdomain}/user/v1/checkPassword`,{
             method: "POST",
             headers:{
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
             body : JSON.stringify({
                 userId : idPart,
@@ -65,7 +66,7 @@ $(".btn-sendChangePassword").click(function (){
         }).then((res) => {
             if (!res.ok) {
                 if (res.status === 500) {
-                    customLogout();
+                    clearInfo();
                 }
                 throw new Error('Network response was not ok');
             }
@@ -90,5 +91,5 @@ $(".btn-exitChangePassword").click(function (){
 
 $(".btn-editInFor").click(function () {
     let idPartner = $(this).attr("data-idPart");
-    $("#content_box").load(`/admin/user/editUser?id=${idPartner}`);
+    customLoadPage(`/admin/user/editUser?id=${idPartner}`, "content_box");
 })

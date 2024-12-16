@@ -37,10 +37,8 @@ public class UserController {
 
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @PostMapping("updatePartner")
-    public ResponseEntity<BaseResponse<ResponsePartner>> updatePartner(@RequestParam("data") String data,
-                                                                          @RequestParam("file") MultipartFile file) throws JsonProcessingException {
-        System.out.println(data);
-        System.out.println(file);
+    public ResponseEntity<BaseResponse<ResponsePartner>> updatePartner(@RequestParam("dataForm") String data,
+                                                                       @RequestParam("file") MultipartFile file) throws JsonProcessingException {
         return  userService.updatePartner(data, file);
     }
 

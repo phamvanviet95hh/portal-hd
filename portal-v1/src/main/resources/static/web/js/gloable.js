@@ -7,6 +7,7 @@ let userId = localStorage.getItem("userId") !== null ? localStorage.getItem("use
 let role = localStorage.getItem("role") !== null ? localStorage.getItem("role") : sessionStorage.getItem("role");
 let msgSession = "Hết phiên đăng nhập hoặc chưa đăng nhập vui lòng đăng nhập trước";
 let msgAuthor = "Bạn không có quyền truy cập web này";
+let msgEmpty = "Không được để trống trường này";
 
 function clearInfo() {
     localStorage.removeItem("username");

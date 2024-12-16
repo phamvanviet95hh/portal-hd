@@ -17,5 +17,8 @@ public class RequestUpdatePartnerDtos {
     private String address;
     private String email;
     private String phone;
+    private String tinh;
+    private String huyen;
+    private String xa;
 }
 
