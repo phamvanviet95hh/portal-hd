@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="content-page" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div class="content">
+        <!-- Start Content-->
+        <div class="container-fluid">
+            <div class="mt-5">
+                <div class="mb-3 content-categoryProduct-body">
+                    <div>
+                        <button class="btn btn-success btn-addPartner">Thêm khách hàng mới</button>
+                    </div>
+                    <h2 class="mb-3"><b>Danh sách khách hàng:</b> </h2>
+                    <div class="table-listCategoryProduct">
+                        <table class="table table-hover">
+                            <thead class="thead-dark" id="productListHead">
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Tên công ty</th>
+                                <th scope="col">Người đại diện</th>
+                                <th scope="col">Số điện thoại</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Ngày khởi tạo</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody id="productListBody">
+                            <tr th:each="part, str : ${customListPartner}">
+                                <td th:text="${str.index + 1}"></td>
+                                <td th:text="${part.getNameCompany()}"></td>
+                                <td th:text="${part.getFullName()}"></td>
+                                <td th:text="${part.getPhone()}"></td>
+                                <td th:text="${part.getEmail()}"></td>
+                                <td th:text="${part.getCreateAt()}"></td>
+                                <td>
+                                    <a href="#" class="user-edit" th:data-id="${part.getId()}">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"
+                                           title="Sửa thông tin tài khoản"></i>
+                                    </a>
+                                    <a href="#" style="color: red" class="user-remove" th:data-id="${part.getId()}">
+                                        <i class="fa fa-trash-o" aria-hidden="true"
+                                           title="Xoá thông tin tài khoản"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
 
-</body>
-</html>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/web/js/admin/partners/listPartner.js}"></script>
+</div>

@@ -1,10 +1,12 @@
 package com.example.thanh_toan_asm.entitys;
 
+import com.example.thanh_toan_asm.dtos.partners.CustomPartnerDtos;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -58,4 +60,10 @@ public class Partner {
     @OneToMany(mappedBy = "partner", cascade = CascadeType.ALL)
     private Set<PartnerToClue> partnerToClues;
 
+    public CustomPartnerDtos getVo() {
+        CustomPartnerDtos customPartnerDtos = new CustomPartnerDtos();
+        BeanUtils.copyProperties(this, customPartnerDtos);
+        customPartnerDtos.setAddress(this.province.getFullName() + " - " + this.districts.getFullName() + " - " + this.ward.getFullName());
+        return customPartnerDtos;
+    }
 }

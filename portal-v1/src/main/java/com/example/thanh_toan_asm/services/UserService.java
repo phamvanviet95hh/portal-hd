@@ -112,14 +112,14 @@ public class UserService {
                 checkPartner.setPassword(passwordEncoder.encode(checkPassword.getNewPassword()));
                 userRepository.save(checkPartner);
                 success = true;
-                message = "Change Password Success!!!";
+                message = "Cập nhập mật khẩu mới thành công!!!";
             } else {
                 success = false;
-                message = "Change Password Fail!!!";
+                message = "Vui lòng kiểm tra lại mật khẩu cũ!!!";
             }
         }catch (Exception e){
             success = false;
-            message = "The account to change was not found.";
+            message = "Không tìm thấy tài khoản cần thay đổi.";
             e.printStackTrace();
         }
 

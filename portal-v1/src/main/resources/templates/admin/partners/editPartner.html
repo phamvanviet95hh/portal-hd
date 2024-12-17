@@ -1,0 +1,139 @@
+<div class="content-page">
+    <div class="content">
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center p-2">
+                        <div class="info-topLeft">
+                            <a href="#" id="info-topLeft-prev" th:data-id="${partner.getId()}">
+                                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                            </a>
+                            <label>
+                                <b>Trở lại</b>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+
+                    <div class="modal-content" style="width: 100%">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa tài khoản</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body p-3 border border-1">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="register-user">
+                                        <p class="mb-0"><b>Ảnh đại diện</b></p>
+                                        <div class="box-logo">
+                                            <div class="box-logo-img">
+                                                <div class="content-productCategoryImg-box d-flex flex-column align-items-center justify-content-center">
+                                                    <div class="image-preview d-flex flex-column align-items-center justify-content-center"
+                                                         id="imagePreview">
+                                                            <span id="content-productCategoryImg-span">
+                                                                <img th:src="'data:image/png;base64,'" alt="" id="avatarInfo">
+                                                            </span>
+                                                    </div>
+                                                    <div class="box_btn-uploadImg">
+                                                        <input type="file" id="imageInput" accept="image/*" name="file" th:value="'data:image/png;base64,'">
+                                                        <button type="button" class="btn btn-info btn-selectImg">Chọn ảnh sản
+                                                            phẩm</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-8">
+                                    <div class="register-user">
+                                        <p class="mb-0"><b>Thông tin đơn vị: </b></p>
+                                        <div  class="register-user-content mb-2">
+                                            <p class="mb-0">Tên công ty :</p>
+                                            <input type="text" placeholder="username..." th:value="${partner.getNameCompany()}" name="username" id="username" th:disabled="${userUntity.getUserName() != null or !#strings.isEmpty(userUntity.getUserName())}"/>
+                                            <p class="mb-0" style="color: red; font-size: 12px; font-style: italic;" id="errorUsername"></p>
+                                        </div>
+                                        <div class="register-user-content mb-2">
+                                            <p class="mb-0">Người đại diện :</p>
+                                            <input type="text" placeholder="Tên đơn vị..." th:value="${partner.getFullName()}" name="fullNameRegister" id="fullNameRegister" />
+                                            <p class="mb-0" style="color: red; font-size: 12px; font-style: italic;" id="errorFullName"></p>
+                                        </div>
+                                        <div class="register-user-content mb-2">
+                                            <p class="mb-0">Email:</p>
+                                            <input type="email" placeholder="Email..." th:value="${partner.getEmail()}" name="email" id="email" />
+                                            <p class="mb-0" style="color: red; font-size: 12px; font-style: italic;" id="errorEmail"></p>
+                                        </div>
+                                        <div class="register-user-content mb-2">
+                                            <p class="mb-0">Số điện thoại :</p>
+                                            <input type="text" placeholder="Số điện thoại..." th:value="${partner.getPhone()}" name="phoneRegister" id="phoneRegister" maxlength="10" />
+                                            <p class="mb-0" style="color: red; font-size: 12px; font-style: italic;" id="errorPhone"></p>
+                                        </div>
+                                        <div class="register-user-content mb-2">
+                                            <p class="mb-0">Số tài khoản :</p>
+                                            <input type="text" placeholder="Số tài khoản..." th:value="${partner.getStk()}" name="stkRegister" id="stkRegister" maxlength="10" />
+                                            <p class="mb-0" style="color: red; font-size: 12px; font-style: italic;" id="stk"></p>
+                                        </div>
+                                        <div class="register-user-content mb-2">
+                                            <p class="mb-0">Mã số thuế :</p>
+                                            <input type="text" placeholder="Mã số thuế..." th:value="${partner.getMst()}" name="mstRegister" id="mstRegister" maxlength="10" />
+                                            <p class="mb-0" style="color: red; font-size: 12px; font-style: italic;" id="mst"></p>
+                                        </div>
+                                        <div class="register-user-content mb-2">
+                                            <p class="mb-0">Chức vụ :</p>
+                                            <input type="text" placeholder="Chức vụ..." th:value="${partner.getPosition()}" name="positionEdit" id="positionEdit" maxlength="10" />
+                                            <p class="mb-0" style="color: red; font-size: 12px; font-style: italic;" id="error-positionEdit"></p>
+                                        </div>
+                                        <div class="register-user-content mb-2">
+                                            <p class="mb-0">Giới tính :</p>
+                                            <input type="text" placeholder="Giới tính..." th:value="${partner.getGender()}" name="genderEdit" id="genderEdit" maxlength="10" />
+                                            <p class="mb-0" style="color: red; font-size: 12px; font-style: italic;" id="error-genderEdit"></p>
+                                        </div>
+                                        <div class="register-user-content mb-2">
+                                            <p class="mb-0">Địa chỉ :</p>
+                                            <div class="row">
+                                                <div class="col-6 mb-3 form-select-tt">
+                                                    <select class="form-control form-select" aria-label="Default select example" id="form_tinh-edit">
+                                                        <option value=""  selected>Chọn tỉnh thành</option>
+                                                        <option th:each="item : ${listProvince}" th:text="${item.getFullName()}" th:value="${item.getCode()}" th:selected="${item.getCode() == userUntity.getProvince().getCode()}"></option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-6 mb-3 ps-0 form-select-tt">
+                                                    <select class="form-control form-select" aria-label="Default select example" id="form_quan-edit">
+                                                        <option th:value="${userUntity.getDistricts().getCode()}" th:text="${userUntity.getDistricts().getFullName()}"></option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-6 mb-3 form-select-tt">
+                                                    <select class="form-control form-select" aria-label="Default select example" id="form_xa-edit">
+                                                        <option th:value="${userUntity.getWard().getCode()}" th:text="${userUntity.getWard().getFullName()}"></option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-6 mb-3 ps-0">
+                                                    <input type="text" class="form-control" id="form_duong-register" placeholder="Số nhà, tên đường">
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="error-register" id="form-error-edit-address"></div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-warning btn-addPartnerBack" data-bs-dismiss="modal" th:data-id="${userUntity.getId()}">Trở lại</button>
+                            <button type="button" class="btn btn-primary btn-updatePartnerRegister" th:data-id="${userUntity.getId()}">Sửa thông tin</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/web/js/admin/infors/editUser.js}"></script>
