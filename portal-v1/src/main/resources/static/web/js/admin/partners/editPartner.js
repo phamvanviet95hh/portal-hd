@@ -1,15 +1,44 @@
-$(document).ready(function(){
+$(document).ready(function () {
     
-    checkInputEmpty("partner-register-input-company", "form-error-partner-register-company", msgEmpty);
-    checkInputEmpty("partner-register-input-fullName", "form-error-partner-register-fullName", msgEmpty);
-    checkInputEmpty("partner-register-input-position", "form-error-register-position", msgEmpty);
-    checkInputEmpty("partner-register-input-gender", "form-error-register-gender", msgEmpty);
-    checkInputEmpty("partner-register-input-phone", "form-error-partner-register-input-phone", msgEmpty);
-    let district = $("#form_quan-register");
-    let ward = $("#form_xa-register");
+    let idUser = $("#partId").val();
+    $(".dm-remove").click(function (e){
+        e.preventDefault();
+        let checkRemove = confirm(" Bạn có muốn xóa đầu mối này không!!! ");
+        let idClue = $(this).attr("data-id");
+        if(checkRemove){
+            fetch(`${localdomain}/api/partner-to-clue/delete?id=${idClue}&idPart=${idUser}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            }).then(res => {
+                if (!res.ok) {
+                    if (res.status === 500) {
+                        alertGloable("Time out", "false");
+                    }
+                    throw new Error('Network response was not ok')
+                }
+                return res.json();
+            }).then(data => {
+                console.log(data)
+                if (data.success) {
+                    checkDelete = true;
+                    alertGloable(data.message, "success");
+                }else {
+                    checkDelete = false;
+                    alertGloable(data.message, "false");
+                }
+            }).catch(err => {
+                console.error('There has been a problem with your fetch operation:', err);
+            })
+            setTimeout(loadListUser, 1000)
+        }
+    });
     
-    $(".btn-registerSendPartner").click(function(){
-        let endPoint = `${localdomain}/api/partner/add`;
+    $(".btn-updatePartnerRegister").click(function () {
+        let idPart = $(this).attr("data-id");
+        idUser = idPart;
         let chek = true;
         let nameCompany = $("#partner-register-input-company").val();
         let nameNDD = $("#partner-register-input-fullName").val();
@@ -35,8 +64,7 @@ $(document).ready(function(){
         chek = checkFromEmpty(nameBank, "form-error-partner-register-bank", msgEmpty, chek);
         chek = checkFromEmpty(idXa, "form-error-register-address", msgEmpty, chek);
         
-        
-        if(chek){
+        if (chek) {
             var dataBody = JSON.stringify({
                 nameCompany : nameCompany,
                 nameNDD : nameNDD,
@@ -52,29 +80,52 @@ $(document).ready(function(){
                 idXa : idXa
             });
             
-           fetch(endPoint, {
-               method: "POST",
-               headers: {
-                   'Content-Type': 'application/json',
-                   'Authorization': `Bearer ${token}`
-               },
-               body : dataBody
-           }).then(response => {
-               if (!response.ok) {
-                   console.log(response.body);
-               }
-               return response.json();
-           }).then(data => {
-               console.log(data)
-           })
-           .catch(error => {
-               console.log(error)
-           });
-            
+            fetch(`${localdomain}/user/v1/updatePartner`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+                body: dataBody // Dữ liệu gửi đi
+            }).then(response => {
+                if (!response.ok) {
+                    if (response.status === 500) {
+                        console.log("Connect to service timeout");
+                    }
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            }).then(data => {
+                if (data.success) {
+                    alertGloable(data.message, "success");
+                    setTimeout(loadListUser, 1000);
+                } else {
+                    alertGloable(data.message, "false");
+                }
+            })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        } else {
+            alertGloable("Gặp lỗi kiểm tra lại những trường thông tin đã nhập", "false");
         }
         
     });
-    $("#form_tinh-register").change(function (){
+    function loadListUser(){
+        
+        customLoadPage(`${localdomain}/web/partner/editPartner?id=${idUser}`, "content_box")
+    }
+    $("#info-topLeft-prev").click(function () {
+        let partnerId = $(this).attr("data-id");
+        $("#content_box").load(`/admin/user/inforUser?idUser=${partnerId}`);
+    });
+    $(".btn-addPartnerBack").click(function () {
+        let partnerId = $(this).attr("data-id");
+        $("#content_box").load(`/admin/user/inforUser?idUser=${partnerId}`);
+    });
+    let district1 = $("#form_quan-edit");
+    let ward = $("#form_xa-edit");
+    
+    $("#form_tinh-edit").change(function (){
         const selectedOption = this.options[this.selectedIndex];
         let idProvince = selectedOption.getAttribute("value");
         fetch(`${localdomain}/web/district/getDistrict?provincesId=${idProvince}`, {
@@ -97,7 +148,7 @@ $(document).ready(function(){
                         <option value="${value.code}"> ${value.fullName} </option>
                     `;
                 })
-                district.html(contentDistrict);
+                district1.html(contentDistrict);
                 
             }
         }).catch(error => {
@@ -105,7 +156,7 @@ $(document).ready(function(){
         });
         
     })
-    district.change(function (){
+    district1.change(function (){
         const selectedOption = this.options[this.selectedIndex];
         let idProvince = selectedOption.getAttribute("value");
         fetch(`${localdomain}/web/ward/getList?districtId=${idProvince}`, {
@@ -131,5 +182,11 @@ $(document).ready(function(){
         }).catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
         });
-    })
+    });
+    $(".btn-loadListDm").click(function (){
+        $("#box-loadDm").addClass("active");
+        let idPart = $(this).val();
+        customLoadPage(`${localdomain}/web/daumoi/get/dm-list?id=${idPart}`, "loadDmContent-box")
+    });
+    
 })

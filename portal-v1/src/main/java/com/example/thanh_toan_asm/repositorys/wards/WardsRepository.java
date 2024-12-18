@@ -12,4 +12,6 @@ public interface WardsRepository extends JpaRepository<Ward, String> {
     List<Ward> findByDistricts(Districts districts);
 
     Ward findByCode(String wardId);
+
+    Ward getByCode(String idXa);
 }

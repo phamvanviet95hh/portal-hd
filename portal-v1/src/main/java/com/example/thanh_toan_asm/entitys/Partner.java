@@ -42,7 +42,7 @@ public class Partner {
     private Position positions;
 
     @ManyToOne
-    @JoinColumn(name = "province_id")
+    @JoinColumn(name = "province_id", unique = false)
     private Province province;
 
     @ManyToOne
@@ -63,7 +63,7 @@ public class Partner {
     public CustomPartnerDtos getVo() {
         CustomPartnerDtos customPartnerDtos = new CustomPartnerDtos();
         BeanUtils.copyProperties(this, customPartnerDtos);
-        customPartnerDtos.setAddress(this.province.getFullName() + " - " + this.districts.getFullName() + " - " + this.ward.getFullName());
         return customPartnerDtos;
     }
+
 }

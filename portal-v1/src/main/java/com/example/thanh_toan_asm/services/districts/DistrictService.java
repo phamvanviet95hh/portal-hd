@@ -36,4 +36,8 @@ public class DistrictService {
                 new BaseResponseList<>(success, message, responseDistricts), HttpStatusCode.valueOf(HttpStatus.OK.value())
         );
     }
+
+    public Districts getOneDistrict(String idHuyen) {
+        return districtRepository.getById(idHuyen);
+    }
 }

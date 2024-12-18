@@ -9,6 +9,7 @@
                     <div class="d-flex justify-content-between align-items-center p-2">
                         <div class="info-topLeft">
                             <a href="#" id="info-topLeft-prev" th:data-id="${partner.getId()}">
+                                <input type="hidden" id="partId" th:value="${partner.getId()}">
                                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
                             </a>
                             <label>
@@ -21,41 +22,17 @@
 
                     <div class="modal-content" style="width: 100%">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa tài khoản</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa thông tin khách hàng</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body p-3 border border-1">
                             <div class="row">
-                                <div class="col-4">
-                                    <div class="register-user">
-                                        <p class="mb-0"><b>Ảnh đại diện</b></p>
-                                        <div class="box-logo">
-                                            <div class="box-logo-img">
-                                                <div class="content-productCategoryImg-box d-flex flex-column align-items-center justify-content-center">
-                                                    <div class="image-preview d-flex flex-column align-items-center justify-content-center"
-                                                         id="imagePreview">
-                                                            <span id="content-productCategoryImg-span">
-                                                                <img th:src="'data:image/png;base64,'" alt="" id="avatarInfo">
-                                                            </span>
-                                                    </div>
-                                                    <div class="box_btn-uploadImg">
-                                                        <input type="file" id="imageInput" accept="image/*" name="file" th:value="'data:image/png;base64,'">
-                                                        <button type="button" class="btn btn-info btn-selectImg">Chọn ảnh sản
-                                                            phẩm</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <div class="col-8">
+                                <div class="col-12">
                                     <div class="register-user">
                                         <p class="mb-0"><b>Thông tin đơn vị: </b></p>
                                         <div  class="register-user-content mb-2">
                                             <p class="mb-0">Tên công ty :</p>
-                                            <input type="text" placeholder="username..." th:value="${partner.getNameCompany()}" name="username" id="username" th:disabled="${userUntity.getUserName() != null or !#strings.isEmpty(userUntity.getUserName())}"/>
+                                            <input type="text" placeholder="username..." th:value="${partner.getNameCompany()}" name="username" id="username"/>
                                             <p class="mb-0" style="color: red; font-size: 12px; font-style: italic;" id="errorUsername"></p>
                                         </div>
                                         <div class="register-user-content mb-2">
@@ -99,17 +76,17 @@
                                                 <div class="col-6 mb-3 form-select-tt">
                                                     <select class="form-control form-select" aria-label="Default select example" id="form_tinh-edit">
                                                         <option value=""  selected>Chọn tỉnh thành</option>
-                                                        <option th:each="item : ${listProvince}" th:text="${item.getFullName()}" th:value="${item.getCode()}" th:selected="${item.getCode() == userUntity.getProvince().getCode()}"></option>
+                                                        <option th:each="item : ${listProvince}" th:text="${item.getFullName()}" th:value="${item.getCode()}" th:selected="${item.getCode() == partner.getProvince().getCode()}"></option>
                                                     </select>
                                                 </div>
                                                 <div class="col-6 mb-3 ps-0 form-select-tt">
                                                     <select class="form-control form-select" aria-label="Default select example" id="form_quan-edit">
-                                                        <option th:value="${userUntity.getDistricts().getCode()}" th:text="${userUntity.getDistricts().getFullName()}"></option>
+                                                        <option th:value="${partner.getDistricts().getCode()}" th:text="${partner.getDistricts().getFullName()}"></option>
                                                     </select>
                                                 </div>
                                                 <div class="col-6 mb-3 form-select-tt">
                                                     <select class="form-control form-select" aria-label="Default select example" id="form_xa-edit">
-                                                        <option th:value="${userUntity.getWard().getCode()}" th:text="${userUntity.getWard().getFullName()}"></option>
+                                                        <option th:value="${partner.getWard().getCode()}" th:text="${partner.getWard().getFullName()}"></option>
                                                     </select>
                                                 </div>
                                                 <div class="col-6 mb-3 ps-0">
@@ -123,17 +100,66 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-12">
+                                    <div class="modal-dm-khachHang mb-3 mt-3">
+                                        <h5><b>Danh sách đầu mối của khách hàng</b></h5>
+                                        <div class="text-center">
+                                            <button class="btn btn-success btn-loadListDm" th:value="${partner.getId()}">Thêm đầu mối phụ thuộc</button>
+                                        </div>
+                                    </div>
+                                    <div class="content-dm-khachHang">
+                                        <table class="table table-hover">
+                                            <thead class="thead-dark" id="productListHead">
+                                            <tr>
+                                                <th scope="col">STT</th>
+                                                <th scope="col">Họ và tên</th>
+                                                <th scope="col">Số điện thoại</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Chức vụ</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="productListBody">
+                                            <tr th:each="clue, str : ${clues}">
+                                                <td th:text="${str.index + 1}"></td>
+                                                <td th:text="${clue.getNameClue()}"></td>
+                                                <td th:text="${clue.getPhoneClue()}"></td>
+                                                <td th:text="${clue.getEmailClue()}"></td>
+                                                <td th:text="${clue.getPositionClue()}"></td>
+                                                <td>
+                                                    <a href="#" style="color: red" class="dm-remove" th:data-id="${clue.getId()}">
+                                                        <i class="fa fa-trash-o" aria-hidden="true"
+                                                           title="Xoá thông tin tài khoản"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-warning btn-addPartnerBack" data-bs-dismiss="modal" th:data-id="${userUntity.getId()}">Trở lại</button>
-                            <button type="button" class="btn btn-primary btn-updatePartnerRegister" th:data-id="${userUntity.getId()}">Sửa thông tin</button>
+                            <button type="button" class="btn btn-warning btn-addPartnerBack" data-bs-dismiss="modal" th:data-id="${partner.getId()}">Trở lại</button>
+                            <button type="button" class="btn btn-primary btn-updatePartnerRegister" th:data-id="${partner.getId()}">Sửa thông tin</button>
                         </div>
                     </div>
 
                 </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="box-loadDm">
+
+        <div class="loadDmContent">
+            <div class="icon-close-dm">
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+            </div>
+            <div class="loadDmContent-box" id="loadDmContent-box">
+
             </div>
         </div>
     </div>
 </div>
-<script th:src="@{/web/js/admin/infors/editUser.js}"></script>
+<script th:src="@{/web/js/admin/partners/editPartner.js}"></script>

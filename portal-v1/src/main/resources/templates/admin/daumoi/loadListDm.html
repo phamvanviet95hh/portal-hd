@@ -1,0 +1,15 @@
+<div class="content-dm-top">
+    <h3>
+        <b>Danh sách các đầu mối có thể thêm</b>
+    </h3>
+</div>
+<div class="content-dm-body">
+    <div th:each="item : ${clues}" th:if="${!productComparator.isInList(item, clueCustomDtos)}" class="mt-3">
+        <input type="checkbox"  th:value="${item.getId()}" name="userDm"> <span th:text="${item.getNameClue()}"></span>
+    </div>
+</div>
+<div class="content-dm-footer mt-3">
+    <button class="btn btn-success btn-addDmToPartner" th:value="${partnerId}">Thêm</button>
+</div>
+
+<script th:src="@{/web/js/admin/partners/loadListDm.js}"></script>

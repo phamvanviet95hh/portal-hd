@@ -75,10 +75,14 @@ function alertGloable(message, type) {
     }, 3000);
 }
 
-function post(url, header = {}, bodyData = {}) {
+function post(url, bodyData) {
+    
     fetch(url, {
         method: "POST",
-        headers: header,
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
         body: bodyData // Dữ liệu gửi đi
     }).then(response => {
         if (!response.ok) {
@@ -220,7 +224,8 @@ function customDelete(url, id) {
     fetch(`${url}?id=${id}`, {
         method: "DELETE",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         }
     }).then(res => {
         if (!res.ok) {

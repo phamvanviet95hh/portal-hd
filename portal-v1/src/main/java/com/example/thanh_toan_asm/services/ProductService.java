@@ -186,26 +186,6 @@ public class ProductService {
                 new BaseResponse(success, message, null), HttpStatusCode.valueOf(statusCode));
     }
 
-    public String saveImage(MultipartFile file) throws IOException {
-        String folderPath = GlobalValue.pathImageProduct
-                + LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "/";
-        if (!Files.exists(Path.of(folderPath))) {
-            try {
-                Files.createDirectories(Path.of(folderPath));
-                log.info(folderPath);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            log.info(folderPath);
-        }
-
-        String originalFilename = StringUtils.cleanPath(file.getOriginalFilename());
-        Path filePath = Paths.get(folderPath).resolve(originalFilename).normalize();
-        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-        return folderPath + originalFilename;
-    }
-
     public ResponseEntity<BaseResponseList<Product>> getProductStatus(String i) {
         List<Product> productList;
         statusCode = HttpStatus.OK.value();

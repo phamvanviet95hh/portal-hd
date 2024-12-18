@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface ProvincesRepository extends JpaRepository<Province, Long> {
 
     Province findByCode(String provinceId);
+
+    Province getByCode(String code);
 }
