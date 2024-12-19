@@ -53,7 +53,6 @@ public class ProductController {
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @DeleteMapping(value = "/delete/product")
     public ResponseEntity<BaseResponse<Product>> deleteProduct(@RequestParam("id") Long id){
-        System.out.println("id :" +id);
         return productService.deleteProduct(id);
     }
 }

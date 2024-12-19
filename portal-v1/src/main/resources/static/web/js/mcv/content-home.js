@@ -4,6 +4,9 @@ $(document).ready(function(){
     let msgIsEmpty = "Không được để trống trường dữ liệu này";
     $("#select-product").change(function () {
         $(".box-product-content").addClass("active");
+        let totalMoneyST = 0;
+        
+        let tienThue = 0;
         let idProduct = $("#select-product").val();
         fetch(`${localdomain}/api/asm/v1/get/product?id=${idProduct}`, {
             method: "GET",
@@ -25,10 +28,26 @@ $(document).ready(function(){
             }
             return res.json();
         }).then(data => {
+            alertGloable("Lấy thành công thông tin sản phẩm", "success");
             $("#product-info-name").val(data.productName);
             $("#product-info-sl").val(1);
             $("#product-info-type").val("chiếc");
             $("#product-info-thue").val(10);
+            $("#product-info-price").val(data.productPrice);
+            let thue = $("#product-info-thue").val();
+            $("#product-info-thue").keyup(function (){
+                tienThue = $(this).val() / 100;
+                totalMoneyST = (data.productPrice + (data.productPrice * tienThue))*$("#product-info-sl").val();
+                $("#product-info-sauThue").val(totalMoneyST)
+            });
+            $("#product-info-sl").keyup(function (){
+                tienThue = $("#product-info-thue").val() / 100;
+                totalMoneyST = (data.productPrice + (data.productPrice * tienThue))*$(this).val();
+                $("#product-info-sauThue").val(totalMoneyST)
+            })
+            tienThue = thue / 100;
+            totalMoneyST = (data.productPrice + (data.productPrice * tienThue)) * $("#product-info-sl").val();
+            $("#product-info-sauThue").val(totalMoneyST)
         }).catch(error => {
             console.log(error);
         });
@@ -114,6 +133,17 @@ $(document).ready(function(){
             $("#box-listUser").removeClass("active");
         }
        
+    })
+    
+    $("#name-company-info-a").keyup(function (){
+        let data = $(this).val();
+        if (data !== ""){
+            $("#box-listPartner").addClass("active");
+            customLoadPage(`${localdomain}/web/loadListPartner?name=${data}`, "box-listPartner");
+        }else {
+            $("#box-listPartner").removeClass("active");
+        }
+        
     })
     
 })

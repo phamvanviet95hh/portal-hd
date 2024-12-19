@@ -1,0 +1,51 @@
+<div class="content-page" xmlns:sec="http://www.w3.org/1999/xhtml">
+  <div class="content">
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <div class="mt-5">
+        <div class="mb-3">
+          <div>
+            <button class="btn btn-warning btn-backListDm">
+              <i class="fa fa-arrow-left" aria-hidden="true"></i> Trở lại danh sách đầu mối
+            </button>
+          </div>
+        </div>
+        <div class="box-add-content-clue">
+          <div class="box-add-content-clue-top">
+            <h3 class="text-center">
+              <b>Thông tin Đầu mối</b>
+            </h3>
+          </div>
+          <div class="box-add-content-clue-body">
+            <div class="add-content-item mb-3">
+              <p>Họ và tên :</p>
+              <input type="text" placeholder="Nhập họ và tên..." name="edit-content-item-fullName" id="edit-content-item-fullName" class="form-control" th:value="${clueCustomDtos.getNameClue()}">
+              <div class="error-from" id="error-edit-content-item-fullName"></div>
+            </div>
+            <div class="add-content-item mb-3">
+              <p>Số điện thoại :</p>
+              <input type="text" placeholder="Nhập Số điện thoại..." name="edit-content-item-phone" id="edit-content-item-phone" class="form-control" th:value="${clueCustomDtos.getPhoneClue()}">
+              <div class="error-from" id="error-edit-content-item-phone"></div>
+            </div>
+            <div class="add-content-item mb-3">
+              <p>Email:</p>
+              <input type="text" placeholder="Nhập email..." name="edit-content-item-email" id="edit-content-item-email" class="form-control" th:value="${clueCustomDtos.getEmailClue()}">
+              <div class="error-from" id="error-edit-content-item-email"></div>
+            </div>
+            <div class="add-content-item mb-3">
+              <p>Chức vụ:</p>
+              <select name="edit-content-item-position" id="edit-content-item-position" class="form-control form-select">
+                <option value="">-> Chọn chức vụ <-</option>
+                <option th:if="${positions != null}" th:each="item, str : ${positions}" th:value="${item.getId()}" th:text="${item.getPositionName()}" th:selected="${item.getPositionName() == clueCustomDtos.getPositionClue()}"></option>
+              </select>
+            </div>
+          </div>
+          <div class="box-add-content-clue-bottom">
+            <button class="btn btn-success btn-addEditClue">Thêm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script th:src="@{/web/js/admin/daumoi/edit-dm.js}"></script>
+</div>

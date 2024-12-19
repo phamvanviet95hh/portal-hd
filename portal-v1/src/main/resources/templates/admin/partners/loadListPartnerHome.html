@@ -1,0 +1,2 @@
+<li th:each="item, str : ${partners}" class="item-partner-home" th:value="${item.getId()}" th:text="${item.getNameCompany()}"></li>
+<script th:src="@{/web/js/mcv/loadListPartnerHome.js}"></script>

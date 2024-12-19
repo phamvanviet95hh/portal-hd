@@ -1439,3 +1439,42 @@ li.partner i.fa-users{
 .fa-times-circle{
     cursor: pointer;
 }
+.box-add-content-clue{
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 2px 3px 8px 1px #3333338c;
+}
+.box-add-content-clue-top{
+    border-bottom: 1px solid #33333363;
+    margin-bottom: 10px;
+}
+.box-add-content-clue-top h3{
+    padding-bottom: 10px;
+}
+
+#box-listPartner{
+    position: absolute;
+    top: 54px;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    display: none;
+    z-index: 99999;
+}
+
+#box-listPartner.active{
+    display: block;
+}
+.item-info-a{
+    position: relative;
+}
+
+.item-partner-home{
+    cursor: pointer;
+    padding: 7px;
+    color: #fff;
+    border-bottom: 1px dotted #fff;
+}
+.item-partner-home:hover{
+    background-color: #0d95e8;
+}

@@ -1,6 +1,5 @@
 $(document).ready(function(){
     let arr = [];
-    
     let id;
     $(".btn-addDmToPartner").click(function() {
         let partnerId = $(this).val();
@@ -38,15 +37,14 @@ $(document).ready(function(){
             });
        
     })
+    
     function getCheckedValues() {
         const checkboxes = document.querySelectorAll('input[name="userDm"]:checked');
         let checkedValues = [];
         checkboxes.forEach((checkbox) => {
             checkedValues.push(checkbox.value);
         });
-        
         arr = checkedValues;
-        
     }
     
     function loadListUser(){

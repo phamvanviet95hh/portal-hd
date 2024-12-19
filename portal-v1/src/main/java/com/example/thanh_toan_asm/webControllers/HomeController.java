@@ -5,6 +5,7 @@ import com.example.thanh_toan_asm.dtos.BaseResponseList;
 import com.example.thanh_toan_asm.dtos.admins.products.ConvertProductDto;
 import com.example.thanh_toan_asm.entitys.*;
 import com.example.thanh_toan_asm.services.ProductService;
+import com.example.thanh_toan_asm.services.partners.PartnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.SpringVersion;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,9 @@ public class HomeController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private PartnerService partnerService;
+
 
     @GetMapping("index")
     public String index(Model model) {
@@ -43,7 +47,6 @@ public class HomeController {
         return "carts/cart";
     }
 
-
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("web/content-home")
     public String contentHome(Model model){
@@ -56,28 +59,23 @@ public class HomeController {
         return "mcv/content-home";
     }
 
-
     @GetMapping("web/content-home-menu")
     public String header(){
         return "mcv/content-home-menu";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping(value = "web/get/productList")
-    public ResponseEntity<BaseResponseList<Product>> productList(@RequestParam(defaultValue = "0") String id) {
-        return productService.getProductStatus(id);
+    @GetMapping("web/loadListPartner")
+    public String loadListPartner(Model model, @RequestParam String name){
+        List<Partner> partners = partnerService.customGetPartHome(name);
+        model.addAttribute("partners", partners);
+        return "admin/partners/loadListPartnerHome";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("web/list-product")
-    public String listProduct(Model model){
-        List<Product> products = productService.getAllProduct();
-        List<ConvertProductDto> convertProductDtos = new ArrayList<>();
-        for (Product item : products) {
-            convertProductDtos.add(item.getVo());
-        }
-        model.addAttribute("listProduct", convertProductDtos);
-        return "admin/products/product";
+    @GetMapping("web/loadInforPartnerHome")
+    public String loadInforPartnerHome(Model model, @RequestParam String id){
+
+
+        return "admin/partners/loadListPartnerHome";
     }
 
 

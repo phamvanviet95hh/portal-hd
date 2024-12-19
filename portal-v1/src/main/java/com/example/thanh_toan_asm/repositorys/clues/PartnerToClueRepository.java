@@ -2,6 +2,7 @@ package com.example.thanh_toan_asm.repositorys.clues;
 
 import com.example.thanh_toan_asm.dtos.BaseResponse;
 import com.example.thanh_toan_asm.dtos.partnerToClue.ClueCustomDtos;
+import com.example.thanh_toan_asm.dtos.partnerToClue.ClueToPartResponse;
 import com.example.thanh_toan_asm.dtos.provices.ResponseProvince;
 import com.example.thanh_toan_asm.entitys.PartnerToClue;
 import jakarta.transaction.Transactional;
@@ -26,4 +27,17 @@ public interface PartnerToClueRepository extends JpaRepository<PartnerToClue, Lo
 
     @Query("select ptc from PartnerToClue ptc where ptc.clue.id = :id and ptc.partner.id = :idPart")
     PartnerToClue customGetClueAndPartner(Long id, Long idPart);
+
+    @Query("select new com.example.thanh_toan_asm.dtos.partnerToClue.ClueToPartResponse(c.id as idClue, c.nameClue, c.phoneClue, c.emailClue, " +
+            " CASE WHEN p.id IS NULL THEN 'Chưa cấp' ELSE p.nameCompany END AS partnerName, " +
+            " CASE WHEN p.id IS NULL THEN 'Chưa cấp' ELSE c.positions.positionName END AS positionName ) from Clue c " +
+            " left join PartnerToClue ptc on ptc.clue.id = c.id " +
+            " left join Partner p on p.id = ptc.partner.id" +
+            " group by c.id, c.nameClue, c.phoneClue, c.emailClue, p.id, p.nameCompany, c.positions.positionName")
+    List<ClueToPartResponse> getListClueAndPartAndPosition();
+
+    @Modifying
+    @Transactional
+    @Query("delete from PartnerToClue ptc where ptc.clue.id = :idClue")
+    void deleteByClueCustom(Long idClue);
 }

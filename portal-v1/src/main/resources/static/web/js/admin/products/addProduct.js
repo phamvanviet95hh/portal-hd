@@ -76,11 +76,11 @@ $(document).ready(function () {
                 productCategoryId: productCategoryId,
                 userId: userIdR
             });
-            console.log(bodyData)
             formData.append("data", bodyData.toString());
             formData.append("file", selectedFile); // Thay bằng file thực tế
             fetch(`${localdomain}/api/asm/v1/create/product`, {
                 method: 'POST',
+                headers: {"Authorization": `Bearer ${token}`},
                 body: formData // Dữ liệu gửi đi
             }).then(response => {
                 if (!response.ok) {
@@ -88,15 +88,20 @@ $(document).ready(function () {
                 }
                 return response.json();
             }).then(data => {
-                console.log(data)
                 if (data.success) {
-                    alert("Bạn vừa thêm mới 1 sản phẩm");
-                    $("#content_box").load("/admin/product");
+                    alertGloable("Thêm mới 1 sản phẩm thành công", "success");
+                    setTimeout(loadListProduct, 1000);
+                }else {
+                    alertGloable("Thêm mới sản phẩm không thành công", "false");
                 }
             })
                 .catch(error => {
                     console.error('There has been a problem with your fetch operation:', error);
                 });
         });
+        
+        function loadListProduct(){
+            customLoadPage(`${localdomain}/web/product/list-product`, "content_box");
+        }
     });
 });

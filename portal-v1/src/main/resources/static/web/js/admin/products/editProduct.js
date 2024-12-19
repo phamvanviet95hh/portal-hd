@@ -53,7 +53,6 @@ $(document).ready(function () {
                 body: bodyData // Dữ liệu gửi đi
             }).then(response => {
                 if (!response.ok) {
-                    
                     alert("Hết phiên đăng nhập");
                     clearInfo();
                     throw new Error('Network response was not ok');

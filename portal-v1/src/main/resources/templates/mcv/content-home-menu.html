@@ -9,32 +9,26 @@
       <span> Dashboard </span>
     </a>
   </li>
-  <li class="partner" sec:authorize="hasRole('ADMIN')">
+  <li  sec:authorize="hasRole('ADMIN')">
     <a class="click" id="viewListUser" href="#">
       <i class="fa fa-file-text-o" aria-hidden="true"></i>
       <span> Quản lý User </span>
     </a>
   </li>
-  <li class="partner" sec:authorize="hasRole('ADMIN')">
+  <li  sec:authorize="hasRole('ADMIN')">
     <a class="click" id="viewListPartner" href="#">
       <i class="fa fa-file-text-o" aria-hidden="true"></i>
       <span> Quản lý khách hàng </span>
     </a>
   </li>
-  <li class="qlService" sec:authorize="hasRole('ADMIN')">
-    <a class="click" id="viewDv" href="#">
+  <li  sec:authorize="hasRole('ADMIN')">
+    <a class="click" id="viewListDm" href="#">
       <i class="fa fa-rocket" aria-hidden="true"></i>
       <span> Quản lý đầu mối </span>
     </a>
   </li>
-  <li sec:authorize="hasRole('ADMIN')">
-    <a class="click" id="viewReport" href="#">
-      <i class="fa fa-file-text-o" aria-hidden="true"></i>
-      <span> Quản lý danh mục sản phẩm </span>
-    </a>
-  </li>
-  <li class="transaction" sec:authorize="hasRole('ADMIN')">
-    <a class="click transactionLink" id="transactionLink">
+  <li  sec:authorize="hasRole('ADMIN')">
+    <a class="click transactionLink" id="viewProduct">
       <i class="fa fa-line-chart" aria-hidden="true"></i>
       <span> Quản lý sản phẩm</span>
     </a>

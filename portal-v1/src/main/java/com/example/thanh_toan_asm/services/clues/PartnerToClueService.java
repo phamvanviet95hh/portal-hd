@@ -3,6 +3,7 @@ package com.example.thanh_toan_asm.services.clues;
 import com.example.thanh_toan_asm.dtos.BaseResponse;
 import com.example.thanh_toan_asm.dtos.GlobalValue;
 import com.example.thanh_toan_asm.dtos.partnerToClue.ClueCustomDtos;
+import com.example.thanh_toan_asm.dtos.partnerToClue.ClueToPartResponse;
 import com.example.thanh_toan_asm.dtos.partnerToClue.CustomPartnerToClueRequest;
 import com.example.thanh_toan_asm.dtos.provices.ResponseProvince;
 import com.example.thanh_toan_asm.entitys.Clue;
@@ -97,5 +98,9 @@ public class PartnerToClueService {
         return new ResponseEntity<>(new BaseResponse<>(
                 success, message, null
         ), HttpStatusCode.valueOf(HttpStatus.OK.value()));
+    }
+
+    public List<ClueToPartResponse> getListClueAndPartAndPosition() {
+        return partnerToClueRepository.getListClueAndPartAndPosition();
     }
 }

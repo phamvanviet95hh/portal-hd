@@ -1,6 +1,8 @@
 package com.example.thanh_toan_asm.services.partners;
 
+import com.example.thanh_toan_asm.confignations.SystemBe;
 import com.example.thanh_toan_asm.dtos.BaseResponse;
+import com.example.thanh_toan_asm.dtos.GlobalValue;
 import com.example.thanh_toan_asm.dtos.partners.PartnerRequestDtos;
 import com.example.thanh_toan_asm.dtos.provices.ResponseProvince;
 import com.example.thanh_toan_asm.entitys.*;
@@ -10,6 +12,7 @@ import com.example.thanh_toan_asm.repositorys.provices.ProvincesRepository;
 import com.example.thanh_toan_asm.repositorys.wards.WardsRepository;
 import com.example.thanh_toan_asm.services.districts.DistrictService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -89,5 +92,34 @@ public class PartnerService {
                 success, message, null
         ), HttpStatusCode.valueOf(HttpStatus.OK.value()));
 
+    }
+
+    public ResponseEntity<BaseResponse<ResponseProvince>> updatePartner(PartnerRequestDtos partnerRequestDtos) {
+
+        if(partnerRequestDtos != null){
+            try{
+                Partner partner = partnerRepository.findById(partnerRequestDtos.getPartnerId()).get();
+                BeanUtils.copyProperties(partnerRequestDtos, partner, SystemBe.getNullPropertyNames(partnerRequestDtos));
+                partner.setUpdateAt(LocalDateTime.now());
+                partnerRepository.save(partner);
+                success = true;
+                message = GlobalValue.msgUpdateSuccess;
+            } catch (Exception e) {
+                success = false;
+                message = GlobalValue.msgUpdateFail;
+                throw new RuntimeException(e);
+            }
+        }else {
+            success = false;
+            message = "Data gửi lên rỗng!!!";
+        }
+
+        return new ResponseEntity<>(new BaseResponse<>(
+                success, message, null
+        ), HttpStatusCode.valueOf(HttpStatus.OK.value()));
+    }
+
+    public List<Partner> customGetPartHome(String name) {
+        return partnerRepository.customGetPartHome(name);
     }
 }

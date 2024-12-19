@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PartnerRequestDtos {
 
+    private Long partnerId;
     private String nameCompany;
     private String nameNDD;
     private String position;

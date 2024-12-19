@@ -40,32 +40,33 @@ $(document).ready(function () {
         let idPart = $(this).attr("data-id");
         idUser = idPart;
         let chek = true;
-        let nameCompany = $("#partner-register-input-company").val();
-        let nameNDD = $("#partner-register-input-fullName").val();
-        let position = $("#partner-register-input-position").val();
-        let gender = $("#partner-register-input-gender").val();
-        let phone = $("#partner-register-input-phone").val();
-        let email = $("#partner-register-input-email").val();
-        let mst = $("#partner-register-input-mst").val();
-        let stk = $("#partner-register-input-stk").val();
-        let nameBank = $("#partner-register-input-bank").val();
-        let idTinh = $("#form_tinh-register").val();
-        let idHuyen = $("#form_quan-register").val();
-        let idXa = $("#form_xa-register").val();
+        let nameCompany = $("#partner-edit-input-company").val();
+        let nameNDD = $("#partner-edit-input-fullName").val();
+        let position = $("#partner-edit-input-position").val();
+        let gender = $("#partner-edit-input-gender").val();
+        let phone = $("#partner-edit-input-phone").val();
+        let email = $("#partner-edit-input-email").val();
+        let mst = $("#partner-edit-input-mst").val();
+        let stk = $("#partner-edit-input-stk").val();
+        let nameBank = $("#partner-edit-input-bank").val();
+        let idTinh = $("#partner-edit-input-province").val();
+        let idHuyen = $("#partner-edit-input-district").val();
+        let idXa = $("#partner-edit-input-ward").val();
         
-        chek = checkFromEmpty(nameCompany, "form-error-partner-register-company", msgEmpty, chek);
-        chek = checkFromEmpty(nameNDD, "form-error-partner-register-fullName", msgEmpty, chek);
-        chek = checkFromEmpty(position, "form-error-register-position", msgEmpty, chek);
-        chek = checkFromEmpty(gender, "form-error-register-gender", msgEmpty, chek);
-        chek = checkFromEmpty(phone, "form-error-partner-register-input-phone", msgEmpty, chek);
-        chek = checkFromEmpty(email, "form-partner-register-input-email", msgEmpty, chek);
-        chek = checkFromEmpty(mst, "form-error-partner-register-mst", msgEmpty, chek);
-        chek = checkFromEmpty(stk, "form-error-partner-register-stk", msgEmpty, chek);
-        chek = checkFromEmpty(nameBank, "form-error-partner-register-bank", msgEmpty, chek);
-        chek = checkFromEmpty(idXa, "form-error-register-address", msgEmpty, chek);
+        chek = checkFromEmpty(nameCompany, "error-partner-edit-input-company", msgEmpty, chek);
+        chek = checkFromEmpty(nameNDD, "error-partner-edit-input-fullName", msgEmpty, chek);
+        chek = checkFromEmpty(position, "error-partner-edit-input-position", msgEmpty, chek);
+        chek = checkFromEmpty(gender, "error-partner-edit-input-gender", msgEmpty, chek);
+        chek = checkFromEmpty(phone, "error-partner-edit-input-input-phone", msgEmpty, chek);
+        chek = checkFromEmpty(email, "error-partner-edit-input-email", msgEmpty, chek);
+        chek = checkFromEmpty(mst, "error-partner-edit-input-mst", msgEmpty, chek);
+        chek = checkFromEmpty(stk, "error-partner-edit-input-stk", msgEmpty, chek);
+        chek = checkFromEmpty(nameBank, "error-partner-edit-input-bank", msgEmpty, chek);
+        chek = checkFromEmpty(idXa, "error-partner-edit-input-address", msgEmpty, chek);
         
         if (chek) {
             var dataBody = JSON.stringify({
+                partnerId : idPart,
                 nameCompany : nameCompany,
                 nameNDD : nameNDD,
                 position : position,
@@ -80,9 +81,10 @@ $(document).ready(function () {
                 idXa : idXa
             });
             
-            fetch(`${localdomain}/user/v1/updatePartner`, {
+            fetch(`${localdomain}/api/partner/update`, {
                 method: "POST",
                 headers: {
+                    "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
                 body: dataBody // Dữ liệu gửi đi
@@ -95,6 +97,7 @@ $(document).ready(function () {
                 }
                 return response.json();
             }).then(data => {
+                console.log(data);
                 if (data.success) {
                     alertGloable(data.message, "success");
                     setTimeout(loadListUser, 1000);
