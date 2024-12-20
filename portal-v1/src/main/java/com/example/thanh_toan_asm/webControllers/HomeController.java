@@ -3,9 +3,11 @@ package com.example.thanh_toan_asm.webControllers;
 import com.example.thanh_toan_asm.dtos.BaseResponseList;
 
 import com.example.thanh_toan_asm.dtos.admins.products.ConvertProductDto;
+import com.example.thanh_toan_asm.dtos.partnerToClue.CustomPartnerForPosition;
 import com.example.thanh_toan_asm.entitys.*;
 import com.example.thanh_toan_asm.services.ProductService;
 import com.example.thanh_toan_asm.services.partners.PartnerService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.SpringVersion;
 import org.springframework.http.ResponseEntity;
@@ -74,8 +76,18 @@ public class HomeController {
     @GetMapping("web/loadInforPartnerHome")
     public String loadInforPartnerHome(Model model, @RequestParam String id){
 
+        System.out.println("id : " +id);
 
         return "admin/partners/loadListPartnerHome";
+    }
+
+    @GetMapping("web/fillInfo")
+    public String fillInfo(Model model, @RequestParam String id){
+
+        Long idpart = id != null ? Long.valueOf(id) : null;
+        Partner partner = partnerService.findById(idpart);
+        model.addAttribute("partner", partner);
+        return "mcv/loadInfoBenA";
     }
 
 

@@ -1,2 +1,12 @@
-<li th:each="item, str : ${partners}" class="item-partner-home" th:value="${item.getId()}" th:text="${item.getNameCompany()}"></li>
-<script th:src="@{/web/js/mcv/loadListPartnerHome.js}"></script>
+<li th:each="item: ${partners}" class="item-partner-home" th:value="${item.getId()}" th:text="${item.getNameCompany()}"></li>
+<script>
+
+    $(document).ready(function(){
+        $(".item-partner-home").click(function(){
+            let idPartner = $(this).val();
+            console.log(idPartner)
+            customLoadPage(`${localdomain}/web/fillInfo?id=${idPartner}`, "load-info-benA");
+        })
+    })
+
+</script>

@@ -61,7 +61,7 @@ public class PartnerService {
             Position position = positionRepository.getById(Long.valueOf(partnerRequestDtos.getPosition()));
             Ward ward = wardsRepository.getByCode(partnerRequestDtos.getIdXa());
             Partner partner = Partner.builder()
-                    .position(partnerRequestDtos.getPosition())
+                    .position(position.getPositionName())
                     .bank(partnerRequestDtos.getNameBank())
                     .mst(partnerRequestDtos.getMst())
                     .createAt(LocalDateTime.now())
