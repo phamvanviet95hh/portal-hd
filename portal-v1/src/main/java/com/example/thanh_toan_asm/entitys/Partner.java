@@ -29,7 +29,7 @@ public class Partner {
     private String email;
     private String mst;
     private String stk;
-    private String bank;
+
     private String gender;
     private String position;
 
@@ -52,6 +52,10 @@ public class Partner {
     @ManyToOne
     @JoinColumn(name = "district_id")
     private Districts districts;
+
+    @ManyToOne
+    @JoinColumn(name = "bank_id")
+    private Bank bank;
 
 
     @OneToMany(mappedBy = "partner", cascade = CascadeType.ALL)

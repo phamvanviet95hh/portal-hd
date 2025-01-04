@@ -3,7 +3,9 @@ package com.example.thanh_toan_asm.controllers.partners;
 
 import com.example.thanh_toan_asm.dtos.BaseResponse;
 import com.example.thanh_toan_asm.dtos.partners.PartnerRequestDtos;
+import com.example.thanh_toan_asm.dtos.partners.ResponsePartnerDtos;
 import com.example.thanh_toan_asm.dtos.provices.ResponseProvince;
+import com.example.thanh_toan_asm.entitys.Partner;
 import com.example.thanh_toan_asm.services.clues.PartnerToClueService;
 import com.example.thanh_toan_asm.services.partners.PartnerService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +38,12 @@ public class PartnerApiController {
     @PostMapping(value = "update")
     public ResponseEntity<BaseResponse<ResponseProvince>> update(@RequestBody PartnerRequestDtos partnerRequestDtos) {
         return partnerService.updatePartner(partnerRequestDtos);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'PARTNER')")
+    @PostMapping(value = "get-info-a")
+    public ResponseEntity<BaseResponse<ResponsePartnerDtos>> getInForA(@RequestBody PartnerRequestDtos partnerRequestDtos) {
+        return partnerService.getInForA(partnerRequestDtos);
     }
 
 

@@ -4,8 +4,10 @@ import com.example.thanh_toan_asm.confignations.SystemBe;
 import com.example.thanh_toan_asm.dtos.BaseResponse;
 import com.example.thanh_toan_asm.dtos.GlobalValue;
 import com.example.thanh_toan_asm.dtos.partners.PartnerRequestDtos;
+import com.example.thanh_toan_asm.dtos.partners.ResponsePartnerDtos;
 import com.example.thanh_toan_asm.dtos.provices.ResponseProvince;
 import com.example.thanh_toan_asm.entitys.*;
+import com.example.thanh_toan_asm.repositorys.BankRepository;
 import com.example.thanh_toan_asm.repositorys.partners.PartnerRepository;
 import com.example.thanh_toan_asm.repositorys.positions.PositionRepository;
 import com.example.thanh_toan_asm.repositorys.provices.ProvincesRepository;
@@ -37,6 +39,9 @@ public class PartnerService {
     @Autowired
     private PositionRepository positionRepository;
 
+    @Autowired
+    private BankRepository bankRepository;
+
 
     private Boolean success;
     private String message;
@@ -59,10 +64,11 @@ public class PartnerService {
             Districts districts = districtService.getOneDistrict(partnerRequestDtos.getIdHuyen());
             Province province = provincesRepository.getByCode(partnerRequestDtos.getIdTinh());
             Position position = positionRepository.getById(Long.valueOf(partnerRequestDtos.getPosition()));
+            Bank bank = bankRepository.getByNameBank(partnerRequestDtos.getNameBank());
             Ward ward = wardsRepository.getByCode(partnerRequestDtos.getIdXa());
             Partner partner = Partner.builder()
                     .position(position.getPositionName())
-                    .bank(partnerRequestDtos.getNameBank())
+                    .bank(bank)
                     .mst(partnerRequestDtos.getMst())
                     .createAt(LocalDateTime.now())
                     .updateAt(LocalDateTime.now())
@@ -121,5 +127,37 @@ public class PartnerService {
 
     public List<Partner> customGetPartHome(String name) {
         return partnerRepository.customGetPartHome(name);
+    }
+
+    public ResponseEntity<BaseResponse<ResponsePartnerDtos>> getInForA(PartnerRequestDtos partnerRequestDtos) {
+        Long idpart = partnerRequestDtos.getPartnerId() != null ? partnerRequestDtos.getPartnerId() : null;
+        assert idpart != null;
+        ResponsePartnerDtos responsePartnerDtos = null;
+        try {
+            success = true;
+            message = "Lấy thông tin đầu mối";
+            Partner partner  = partnerRepository.findById(idpart).orElse(null);
+            responsePartnerDtos  = ResponsePartnerDtos.builder()
+                    .nameBank(partner.getBank().getNameBank())
+                    .addressBank(partner.getBank().getProvince().getCode() + " - " + partner.getBank().getDistricts().getCode() + " - " + partner.getBank().getWard().getCode())
+                    .nameNDD(partner.getFullName())
+                    .addressKh(partner.getProvince().getCode() + " - " + partner.getDistricts().getCode() + " - " + partner.getWard().getCode())
+                    .mst(partner.getMst())
+                    .gender(partner.getGender())
+                    .stk(partner.getStk())
+                    .nameCompany(partner.getNameCompany())
+                    .position(partner.getPositions().getPositionName())
+                    .email(partner.getEmail())
+                    .phone(partner.getPhone())
+                    .build();
+        } catch (Exception e) {
+            success = false;
+            message = "Lấy thông tin đầu mối không thành công";
+            throw new RuntimeException(e);
+        }
+
+        return new ResponseEntity<>(new BaseResponse<>(
+                success, message, responsePartnerDtos
+        ), HttpStatusCode.valueOf(HttpStatus.OK.value()));
     }
 }

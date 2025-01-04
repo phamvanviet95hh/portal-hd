@@ -76,7 +76,6 @@ function alertGloable(message, type) {
 }
 
 function post(url, bodyData) {
-    
     fetch(url, {
         method: "POST",
         headers: {

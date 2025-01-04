@@ -45,6 +45,7 @@ public class Districts {
     @OneToMany(mappedBy = "districts", cascade = CascadeType.ALL)
     private Set<UserUntity> userUntities;
 
+
     public Districts(String districtId) {
 
         this.code = districtId;
